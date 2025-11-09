@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://7soesushrrrk"]
+[gd_scene load_steps=9 format=4 uid="uid://7soesushrrrk"]
 
 [ext_resource type="Texture2D" uid="uid://5trmdp2feoc0" path="res://assets/tiles/spritesheet.png" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://j1c5gof2qyc0" path="res://world.gd" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://ol2hlo3yofuq" path="res://wolf.tscn" id="2_tlwt5"]
-[ext_resource type="PackedScene" uid="uid://dfmbu8srun4ra" path="res://spider.tscn" id="3_aqk2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
 texture = ExtResource("1_aqk2v")
@@ -282,7 +281,6 @@ point_count = 15
 [node name="world" type="Node2D"]
 script = ExtResource("1_fj7yv")
 wolf_scene = ExtResource("2_tlwt5")
-spider_scene = ExtResource("3_aqk2v")
 
 [node name="TileMapGround" type="TileMapLayer" parent="."]
 y_sort_enabled = true
