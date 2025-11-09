@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0a7wihpcdfab"
-path="res://.godot/imported/Run_Shadow_120.png-88ef5b2fbd1634d89db265d98d281f7c.ctex"
+uid="uid://e76qmogv1dt7"
+path="res://.godot/imported/Run_Shadow_315.png-edc6ea5f1f85c194ebec43c38d34dddb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spider/Run_Shadow_120.png"
-dest_files=["res://.godot/imported/Run_Shadow_120.png-88ef5b2fbd1634d89db265d98d281f7c.ctex"]
+source_file="res://assets/spider/Run/Run_Shadow_315.png"
+dest_files=["res://.godot/imported/Run_Shadow_315.png-edc6ea5f1f85c194ebec43c38d34dddb.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cixhblp6dl2yn"
-path="res://.godot/imported/Run_Body_120.png-ceb16338f884f764e7ef4665d1017104.ctex"
+uid="uid://csimy47cjsi8r"
+path="res://.godot/imported/Run_Body_120.png-fd644bca6641d1e1d6218d77f210a5de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spider/Run_Body_120.png"
-dest_files=["res://.godot/imported/Run_Body_120.png-ceb16338f884f764e7ef4665d1017104.ctex"]
+source_file="res://assets/spider/Run/Run_Body_120.png"
+dest_files=["res://.godot/imported/Run_Body_120.png-fd644bca6641d1e1d6218d77f210a5de.ctex"]
 
 [params]
 
