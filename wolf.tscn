@@ -1,7 +1,7 @@
 [gd_scene load_steps=58 format=3 uid="uid://ol2hlo3yofuq"]
 
 [ext_resource type="Texture2D" uid="uid://c0cf2jhtftcb8" path="res://assets/wolf/wolf-death.png" id="1_8rgm2"]
-[ext_resource type="Script" uid="uid://bhqt2ss0i3eh7" path="res://wolf.gd" id="1_ol4uw"]
+[ext_resource type="Script" uid="uid://c1w3ugi2rcpe3" path="res://wolf.gd" id="1_ol4uw"]
 [ext_resource type="Texture2D" uid="uid://bwgggpehxxr2t" path="res://assets/wolf/wolf-howl.png" id="2_ol4uw"]
 [ext_resource type="Texture2D" uid="uid://bnba0pjw7le0r" path="res://assets/wolf/wolf-run.png" id="3_sbym6"]
 

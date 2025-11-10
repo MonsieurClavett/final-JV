@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://7soesushrrrk"]
+[gd_scene load_steps=10 format=4 uid="uid://7soesushrrrk"]
 
 [ext_resource type="Texture2D" uid="uid://5trmdp2feoc0" path="res://assets/tiles/spritesheet.png" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://j1c5gof2qyc0" path="res://world.gd" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://ol2hlo3yofuq" path="res://wolf.tscn" id="2_tlwt5"]
+[ext_resource type="Script" uid="uid://q2yyubmussjv" path="res://hud.gd" id="4_aqk2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
 texture = ExtResource("1_aqk2v")
@@ -301,3 +302,13 @@ zoom = Vector2(1.4, 1.4)
 
 [node name="Path2DPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_tlwt5")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("4_aqk2v")
+
+[node name="GoldLabel" type="Label" parent="HUD"]
+offset_left = 1048.0
+offset_top = 20.0
+offset_right = 1145.0
+offset_bottom = 59.0
+text = "Gold: 0"
