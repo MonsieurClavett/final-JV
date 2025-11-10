@@ -1,0 +1,157 @@
+[gd_scene load_steps=22 format=3 uid="uid://bfwkrbo1n0snu"]
+
+[ext_resource type="Script" uid="uid://cma7kthk4g718" path="res://tower.gd" id="1_k1sas"]
+[ext_resource type="Texture2D" uid="uid://twyefpch5rr8" path="res://assets/Tower/Normal_Idle_Simple/Normal_Idle_Simple_Body_270.png" id="2_vedim"]
+[ext_resource type="Texture2D" uid="uid://32w6hoai5t4u" path="res://assets/Tower/Normal_Idle_Simple/Normal_Idle_Simple_Shadow_270.png" id="3_stebd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stebd"]
+atlas = ExtResource("2_vedim")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbe1c"]
+atlas = ExtResource("2_vedim")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxmma"]
+atlas = ExtResource("2_vedim")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lny5m"]
+atlas = ExtResource("2_vedim")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ibu2"]
+atlas = ExtResource("2_vedim")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdbe0"]
+atlas = ExtResource("2_vedim")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwla6"]
+atlas = ExtResource("2_vedim")
+region = Rect2(640, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh44g"]
+atlas = ExtResource("2_vedim")
+region = Rect2(960, 320, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nyvao"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stebd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbe1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxmma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lny5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ibu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdbe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwla6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yh44g")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyvao"]
+atlas = ExtResource("3_stebd")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d03u5"]
+atlas = ExtResource("3_stebd")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvyee"]
+atlas = ExtResource("3_stebd")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6rmy"]
+atlas = ExtResource("3_stebd")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv07r"]
+atlas = ExtResource("3_stebd")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hilxi"]
+atlas = ExtResource("3_stebd")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80afm"]
+atlas = ExtResource("3_stebd")
+region = Rect2(640, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ebih"]
+atlas = ExtResource("3_stebd")
+region = Rect2(960, 320, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wgpyl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyvao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d03u5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvyee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6rmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv07r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hilxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80afm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ebih")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 15.0
+}]
+
+[node name="Tower" type="Node2D"]
+script = ExtResource("1_k1sas")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+z_index = 5
+position = Vector2(22.000002, -4)
+scale = Vector2(0.46952394, 0.481941)
+sprite_frames = SubResource("SpriteFrames_nyvao")
+animation = &"idle"
+frame_progress = 0.5797482
+
+[node name="Shadow" type="AnimatedSprite2D" parent="."]
+z_index = 5
+position = Vector2(22.000002, -4)
+scale = Vector2(0.46952394, 0.481941)
+sprite_frames = SubResource("SpriteFrames_wgpyl")
+animation = &"idle"
+frame_progress = 0.9109897

@@ -4,7 +4,7 @@ extends PathFollow2D
 @export var speed: float = 80.0
 @export var max_health: int = 10
 @export var health_decrease_rate: float = 1.0
-@export var reward: int = 5
+@export var reward: int = 50
 
 var health: float
 var _last_global_pos: Vector2

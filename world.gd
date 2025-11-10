@@ -2,6 +2,8 @@
 extends Node2D
 
 @export var wolf_scene: PackedScene
+@export var tower_scene: PackedScene
+
 
 @onready var path: Path2D = $Path2DPath
 @onready var hud: CanvasLayer = $HUD
@@ -9,7 +11,7 @@ extends Node2D
 @export var spawn_interval: float = 1.5
 var _timer: float = 0.0
 
-var gold: int = 0
+var gold: int = 50
 
 
 func _ready() -> void:
@@ -44,3 +46,22 @@ func add_gold(amount: int) -> void:
 	gold += amount
 	if hud:
 		hud.update_gold(gold)
+		
+func try_buy_tower(cost: int, position: Vector2) -> bool:
+	if gold < cost:
+		print("Pas assez d'or, il te manque %d" % int(cost - gold))
+		return false
+
+	if tower_scene == null:
+		push_error("tower_scene n'est pas assigné dans world.gd")
+		return false
+
+	gold -= cost
+	hud.update_gold(gold)
+
+	var tower = tower_scene.instantiate()
+	add_child(tower)
+	tower.global_position = position
+	print("Tour placée à ", position)
+
+	return true
