@@ -1,67 +1,103 @@
-# world.gd
 extends Node2D
 
-@export var wolf_scene: PackedScene
+# --- Scènes à assigner dans l’éditeur ---
+@export var spider_scene: PackedScene
+@export var spider_boss_scene: PackedScene
 @export var tower_scene: PackedScene
-
 
 @onready var path: Path2D = $Path2DPath
 @onready var hud: CanvasLayer = $HUD
 
-@export var spawn_interval: float = 1.5
-var _timer: float = 0.0
+# --- timings (exemple) ---
+@export var spider_spawn_time: float = 2.0   # à t=2s, 3 spiders
+@export var boss_spawn_time: float = 10.0    # à t=10s, 1 boss
 
+# --- état ---
+var _elapsed: float = 0.0
+var _spiders_spawned: bool = false
+var _boss_spawned: bool = false
+
+# 💰 or local (pas d'autoload)
 var gold: int = 50
 
 
 func _ready() -> void:
-	if hud == null:
-		push_error("HUD node not found as $HUD")
-	else:
+	if hud:
 		hud.update_gold(gold)
 
 
 func _process(delta: float) -> void:
-	_timer -= delta
-	if _timer <= 0.0:
-		_timer = spawn_interval
-		spawn_wolf()
+	_elapsed += delta
+
+	# 3 spiders une seule fois
+	if not _spiders_spawned and _elapsed >= spider_spawn_time:
+		_spiders_spawned = true
+		for i in range(3):
+			spawn_spider(i)
+
+	# boss une seule fois
+	if not _boss_spawned and _elapsed >= boss_spawn_time:
+		_boss_spawned = true
+		spawn_spider_boss()
 
 
-func spawn_wolf() -> void:
-	if wolf_scene == null:
-		push_error("wolf_scene not set in world.gd")
-		return
-
-	var wolf = wolf_scene.instantiate()
-	path.add_child(wolf)
-	wolf.progress = 0.0
-	wolf.world_ref = self  # on donne la ref du monde
-
-
+# ---------- GOLD (local) ----------
 func add_gold(amount: int) -> void:
 	if amount <= 0:
 		return
-
 	gold += amount
 	if hud:
 		hud.update_gold(gold)
-		
+
+func spend_gold(amount: int) -> bool:
+	if gold < amount:
+		return false
+	gold -= amount
+	if hud:
+		hud.update_gold(gold)
+	return true
+
+
+# ---------- ACHAT TOUR (appelé par BuildButton) ----------
 func try_buy_tower(cost: int, position: Vector2) -> bool:
-	if gold < cost:
-		print("Pas assez d'or, il te manque %d" % int(cost - gold))
-		return false
-
 	if tower_scene == null:
-		push_error("tower_scene n'est pas assigné dans world.gd")
+		push_error("world.gd: tower_scene non assignée")
+		return false
+	if not spend_gold(cost):
+		print("Pas assez d'or (gold=%d, cost=%d)" % [gold, cost])
 		return false
 
-	gold -= cost
-	hud.update_gold(gold)
-
-	var tower = tower_scene.instantiate()
+	var tower: Node2D = tower_scene.instantiate()
 	add_child(tower)
 	tower.global_position = position
-	print("Tour placée à ", position)
-
 	return true
+
+
+# ---------- SPAWNERS ----------
+func spawn_spider(offset_index: int = 0) -> void:
+	if spider_scene == null:
+		push_error("world.gd: spider_scene non assignée")
+		return
+	var s: Node = spider_scene.instantiate()
+	path.add_child(s)
+	# léger décalage pour éviter la superposition au départ
+	if s is PathFollow2D:
+		(s as PathFollow2D).progress = float(offset_index) * 40.0
+	# passer la ref du monde pour les rewards
+	if s.has_variable("world_ref"):
+		s.world_ref = self
+	else:
+		s.set("world_ref", self)
+
+func spawn_spider_boss() -> void:
+	if spider_boss_scene == null:
+		push_error("world.gd: spider_boss_scene non assignée")
+		return
+	var b: Node = spider_boss_scene.instantiate()
+	path.add_child(b)
+	if b is PathFollow2D:
+		(b as PathFollow2D).progress = 0.0
+	if b.has_variable("world_ref"):
+		b.world_ref = self
+	else:
+		b.set("world_ref", self)

@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://5trmdp2feoc0" path="res://assets/tiles/spritesheet.png" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://j1c5gof2qyc0" path="res://world.gd" id="1_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://ol2hlo3yofuq" path="res://wolf.tscn" id="2_tlwt5"]
-[ext_resource type="PackedScene" uid="uid://bfwkrbo1n0snu" path="res://tower.tscn" id="3_036b0"]
+[ext_resource type="PackedScene" uid="uid://dfmbu8srun4ra" path="res://spider.tscn" id="3_pkg7o"]
 [ext_resource type="Script" uid="uid://q2yyubmussjv" path="res://hud.gd" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://dghcicylv512g" path="res://spider_boss.tscn" id="4_gbfbk"]
 [ext_resource type="Script" uid="uid://b4pa7hk2feeju" path="res://build_button.gd" id="6_dwbse"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
@@ -277,14 +277,14 @@ sources/0 = SubResource("TileSetAtlasSource_f3sb7")
 
 [sub_resource type="Curve2D" id="Curve2D_tlwt5"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 445, -51, 0, 0, 0, 0, 553, 18, 0, 0, 0, 0, 644, 49, 0, 0, 0, 0, 889, 61, 0, 0, 0, 0, 923, 104, 0, 0, 0, 0, 888, 127, 0, 0, 0, 0, 761, 131, 0, 0, 0, 0, 598, 212, 0, 0, 0, 0, 617, 325, 0, 0, 0, 0, 750, 360, 0, 0, 0, 0, 922, 260, 0, 0, 0, 0, 1117, 345, 0, 0, 0, 0, 1208, 269, 0, 0, 0, 0, 1200, 146, 0, 0, 0, 0, 1125, 72)
+"points": PackedVector2Array(0, 0, 0, 0, 445, -51, 0, 0, 0, 0, 519, -1, 0, 0, 0, 0, 579, 26, 0, 0, 0, 0, 640, 48, 0, 0, 0, 0, 700, 62, 0, 0, 0, 0, 759, 62, 0, 0, 0, 0, 805, 64, 0, 0, 0, 0, 859, 62, 0, 0, 0, 0, 899, 68, 0, 0, 0, 0, 922, 90, 0, 0, 0, 0, 918, 117, 0, 0, 0, 0, 879, 126, 0, 0, 0, 0, 784, 132, 0, 0, 0, 0, 692, 151, 0, 0, 0, 0, 636, 177, 0, 0, 0, 0, 604, 214, 0, 0, 0, 0, 593, 262, 0, 0, 0, 0, 604, 315, 0, 0, 0, 0, 646, 341, 0, 0, 0, 0, 715, 357, 0, 0, 0, 0, 776, 351, 0, 0, 0, 0, 911, 259, 0, 0, 0, 0, 945, 259, 0, 0, 0, 0, 1073, 336, 0, 0, 0, 0, 1136, 339, 0, 0, 0, 0, 1187, 292, 0, 0, 0, 0, 1207, 240, 0, 0, 0, 0, 1207, 178, 0, 0, 0, 0, 1196, 141, 0, 0, 0, 0, 1132, 76)
 }
-point_count = 15
+point_count = 30
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_fj7yv")
-wolf_scene = ExtResource("2_tlwt5")
-tower_scene = ExtResource("3_036b0")
+spider_scene = ExtResource("3_pkg7o")
+spider_boss_scene = ExtResource("4_gbfbk")
 
 [node name="TileMapGround" type="TileMapLayer" parent="."]
 y_sort_enabled = true

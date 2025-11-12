@@ -3,7 +3,7 @@ extends PathFollow2D
 
 @export var speed: float = 80.0
 @export var max_health: int = 10
-@export var health_decrease_rate: float = 1.0
+@export var health_decrease_rate: float = 0
 @export var reward: int = 50
 
 var health: float
@@ -15,6 +15,7 @@ var world_ref: Node = null
 
 
 func _ready() -> void:
+	add_to_group("enemies") 
 	_last_global_pos = global_position
 	health = max_health
 	if sprite:

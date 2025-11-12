@@ -2362,6 +2362,7 @@ animations = [{
 }]
 
 [node name="Spider" type="PathFollow2D"]
+scale = Vector2(0.85510665, 0.86692005)
 rotates = false
 script = ExtResource("1_l1y2r")
 
@@ -2372,7 +2373,7 @@ sprite_frames = SubResource("SpriteFrames_8a5wl")
 animation = &"run_0"
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -2)
+position = Vector2(1, -1)
 scale = Vector2(0.57077646, 0.53758514)
 sprite_frames = SubResource("SpriteFrames_0eusu")
 animation = &"run_0"
