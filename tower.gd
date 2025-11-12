@@ -1,16 +1,13 @@
 extends Node2D
 
-# --- réglages ---
 @export var range: float = 160.0
 @export var retarget_interval: float = 0.2
 @export var dir_step_deg: float = 22.5
 @export var anim_prefix: String = "shoot_"
 @export var anim_angle_offset: float = 90.0
 
-# --- nodes ---
 @onready var body: AnimatedSprite2D = $Body
 
-# --- état ---
 var target: Node = null
 var _retarget_t: float = 0.0
 
@@ -19,12 +16,10 @@ func _ready() -> void:
 		push_error("Tower.gd: node 'Body' introuvable")
 		return
 
-	# Joue une anim par défaut
 	var default_anim := "%s0" % anim_prefix
 	if body.sprite_frames and body.sprite_frames.has_animation(default_anim):
 		body.play(default_anim)
 
-	# Redessine le range en mode debug
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
@@ -36,7 +31,6 @@ func _physics_process(delta: float) -> void:
 	if _is_valid_target(target):
 		_aim_at(target.global_position)
 
-# ---------- ciblage ----------
 func _find_target() -> Node:
 	var best: Node = null
 	var best_d := range
@@ -52,7 +46,6 @@ func _find_target() -> Node:
 func _is_valid_target(e: Node) -> bool:
 	return e != null and e.is_inside_tree()
 
-# ---------- visée / animation ----------
 func _aim_at(pos: Vector2) -> void:
 	var dir := pos - global_position
 	if dir.length() <= 0.001 or body == null:
@@ -70,7 +63,6 @@ func _aim_at(pos: Vector2) -> void:
 	if body.sprite_frames.has_animation(anim_name) and body.animation != anim_name:
 		body.play(anim_name)
 
-# ---------- affichage du range ----------
 func _draw() -> void:
 	
 	# cercle rouge transparent

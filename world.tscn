@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=4 uid="uid://7soesushrrrk"]
+[gd_scene load_steps=13 format=4 uid="uid://7soesushrrrk"]
 
 [ext_resource type="Texture2D" uid="uid://5trmdp2feoc0" path="res://assets/tiles/spritesheet.png" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://j1c5gof2qyc0" path="res://world.gd" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://bfwkrbo1n0snu" path="res://tower.tscn" id="3_036b0"]
 [ext_resource type="PackedScene" uid="uid://dfmbu8srun4ra" path="res://spider.tscn" id="3_pkg7o"]
 [ext_resource type="Script" uid="uid://q2yyubmussjv" path="res://hud.gd" id="4_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://dghcicylv512g" path="res://spider_boss.tscn" id="4_gbfbk"]
@@ -283,6 +284,7 @@ point_count = 30
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_fj7yv")
+tower_scene = ExtResource("3_036b0")
 spider_scene = ExtResource("3_pkg7o")
 spider_boss_scene = ExtResource("4_gbfbk")
 

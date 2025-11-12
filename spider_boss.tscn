@@ -4462,11 +4462,12 @@ rotates = false
 script = ExtResource("1_sgibl")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_jaawv")
 animation = &"walk_0"
-frame_progress = 0.532234
+frame_progress = 0.12051226
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gbt66")
 animation = &"walk_shadow_0"
-frame_progress = 0.22143306
+frame_progress = 0.80970865

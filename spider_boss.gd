@@ -3,10 +3,9 @@ extends PathFollow2D
 @export var speed: float = 60.0
 @export var reward: int = 50
 
-# si tu utilises des anims directionnelles :
 @export var dir_step_deg: float = 22.5         # 16 directions -> 22.5 ; 8 -> 45.0
-@export var anim_prefix: String = "walk_"      # walk_0, walk_22, ..., walk_337
-@export var anim_angle_offset: float = 270.0   # ton 0° = haut -> +270
+@export var anim_prefix: String = "walk_"     
+@export var anim_angle_offset: float = 90.0  
 @onready var body: AnimatedSprite2D = $Body
 @onready var shadow: AnimatedSprite2D = ($Shadow if has_node("Shadow") else null)
 
@@ -25,12 +24,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	progress += speed * delta
 
-	# (option test) baisse de vie automatique
+	
 	health -= delta * 1.0
 	if health <= 0.0:
 		die()
 
-	# orienter selon mouvement (si anims directionnelles)
+	
 	var cur: Vector2 = global_position
 	var move: Vector2 = cur - _last_global_pos
 	if move.length() > 0.1:
@@ -55,7 +54,7 @@ func _update_direction_animation(dir: Vector2) -> void:
 
 	var steps_total: int = int(360.0 / dir_step_deg)
 	var step_idx: int = int(round(ang / dir_step_deg)) % steps_total
-	var snapped: int = int(step_idx * dir_step_deg)  # 0,22,45,...,337
+	var snapped: int = int(step_idx * dir_step_deg) 
 
 	var anim_name := "%s%d" % [anim_prefix, snapped]
 	var shadow_name := "walk_shadow_%d" % snapped

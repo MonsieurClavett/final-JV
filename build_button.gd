@@ -1,7 +1,7 @@
 extends Button
 
 @export var cost: int = 50
-@export var world: Node  # assigne World dans l’inspecteur (ou auto-find ci-dessous)
+@export var world: Node  
 
 func _ready() -> void:
 	if world == null:
