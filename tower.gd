@@ -1,15 +1,20 @@
 extends Node2D
 
+@export var projectile_scene: PackedScene
+@export var fire_rate: float = 1.0
+var cooldown: float = 0.0
+
 @export var range: float = 160.0
 @export var retarget_interval: float = 0.2
 @export var dir_step_deg: float = 22.5
 @export var anim_prefix: String = "shoot_"
-@export var anim_angle_offset: float = 90.0
+@export var anim_angle_offset: float = 90.0   # adapte selon ton sprite
 
 @onready var body: AnimatedSprite2D = $Body
 
-var target: Node = null
+var target: Node2D = null
 var _retarget_t: float = 0.0
+
 
 func _ready() -> void:
 	if body == null:
@@ -22,48 +27,81 @@ func _ready() -> void:
 
 	queue_redraw()
 
+
 func _physics_process(delta: float) -> void:
+	if body == null:
+		return
+
+	cooldown -= delta
 	_retarget_t -= delta
+
+	# (re)cibler périodiquement
 	if _retarget_t <= 0.0 or not _is_valid_target(target):
 		_retarget_t = retarget_interval
 		target = _find_target()
 
 	if _is_valid_target(target):
 		_aim_at(target.global_position)
+		if cooldown <= 0.0:
+			_shoot()
+			cooldown = 1.0 / fire_rate
 
-func _find_target() -> Node:
-	var best: Node = null
-	var best_d := range
-	for e in get_tree().get_nodes_in_group("enemies"):
-		if not _is_valid_target(e):
+
+func _find_target() -> Node2D:
+	var enemies: Array = get_tree().get_nodes_in_group("enemies")
+	var closest: Node2D = null
+	var best_dist: float = range
+
+	for e in enemies:
+		if not (e is Node2D):
 			continue
-		var d := global_position.distance_to(e.global_position)
-		if d <= range and d < best_d:
-			best_d = d
-			best = e
-	return best
+		var enemy := e as Node2D
+		var dist: float = global_position.distance_to(enemy.global_position)
+		if dist < best_dist:
+			best_dist = dist
+			closest = enemy
 
-func _is_valid_target(e: Node) -> bool:
-	return e != null and e.is_inside_tree()
+	return closest
 
-func _aim_at(pos: Vector2) -> void:
-	var dir := pos - global_position
-	if dir.length() <= 0.001 or body == null:
+
+func _shoot() -> void:
+	if projectile_scene == null or target == null:
 		return
 
-	var ang := rad_to_deg(atan2(dir.y, dir.x))
+	var p: Node2D = projectile_scene.instantiate()
+	get_tree().current_scene.add_child(p)
+	p.global_position = global_position
+
+	# passe la cible au projectile
+	if "target" in p:
+		p.target = target
+
+
+func _is_valid_target(e: Node) -> bool:
+	return e != null and is_instance_valid(e) and e.is_inside_tree()
+
+
+func _aim_at(pos: Vector2) -> void:
+	var dir: Vector2 = pos - global_position
+	if dir.length() <= 0.001:
+		return
+
+	var ang: float = rad_to_deg(atan2(dir.y, dir.x))
 	if ang < 0.0:
 		ang += 360.0
 
 	ang = fmod(ang + anim_angle_offset + 360.0, 360.0)
-	var steps := int(round(ang / dir_step_deg)) % int(360.0 / dir_step_deg)
-	var snapped := int(steps * dir_step_deg)
-	var anim_name := "%s%d" % [anim_prefix, snapped]
+
+	var step_count: int = int(360.0 / dir_step_deg)
+	var step_idx: int = int(round(ang / dir_step_deg)) % step_count
+	var snapped_deg: int = int(step_idx * dir_step_deg)
+
+	var anim_name := "%s%d" % [anim_prefix, snapped_deg]
 
 	if body.sprite_frames.has_animation(anim_name) and body.animation != anim_name:
 		body.play(anim_name)
 
+
 func _draw() -> void:
-	
-	# cercle rouge transparent
+	# cercle de portée (arc rouge)
 	draw_arc(Vector2.ZERO, range, 0, TAU, 64, Color(1, 0, 0))

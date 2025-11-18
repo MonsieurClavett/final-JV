@@ -4463,11 +4463,32 @@ script = ExtResource("1_sgibl")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 z_index = 1
+position = Vector2(0, 1.7820517)
 sprite_frames = SubResource("SpriteFrames_jaawv")
-animation = &"walk_0"
-frame_progress = 0.12051226
+animation = &"walk_180"
+frame_progress = 0.37252265
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gbt66")
 animation = &"walk_shadow_0"
-frame_progress = 0.80970865
+frame_progress = 0.5985799
+
+[node name="HealthBar" type="Node2D" parent="."]
+
+[node name="BG" type="ColorRect" parent="HealthBar"]
+z_index = 10
+offset_left = -32.25775
+offset_top = -78.41027
+offset_right = 7.7422485
+offset_bottom = -38.41027
+scale = Vector2(1.7593588, 0.121763185)
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="FG" type="ColorRect" parent="HealthBar"]
+z_index = 10
+offset_left = -32.257755
+offset_top = -78.41027
+offset_right = 7.7422447
+offset_bottom = -38.41027
+scale = Vector2(1.7593588, 0.121763185)
+color = Color(0, 1, 0, 1)

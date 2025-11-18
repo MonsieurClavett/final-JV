@@ -313,10 +313,12 @@ curve = SubResource("Curve2D_tlwt5")
 script = ExtResource("4_aqk2v")
 
 [node name="GoldLabel" type="Label" parent="HUD"]
-offset_left = 1073.0
-offset_top = 18.0
-offset_right = 1131.0
-offset_bottom = 41.0
+offset_left = 653.0
+offset_top = 4.0
+offset_right = 742.0
+offset_bottom = 36.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
 text = "Gold : 0"
 
 [node name="BuildButton" type="Button" parent="."]
@@ -325,5 +327,59 @@ offset_left = -144.0
 offset_top = 92.0
 offset_right = -107.0
 offset_bottom = 123.0
+text = "50"
+script = ExtResource("6_dwbse")
+
+[node name="BuildButton2" type="Button" parent="."]
+z_index = 1
+offset_left = -320.0
+offset_top = -54.0
+offset_right = -283.0
+offset_bottom = -23.0
+text = "50"
+script = ExtResource("6_dwbse")
+
+[node name="BuildButton3" type="Button" parent="."]
+z_index = 1
+offset_left = -338.0
+offset_top = 211.0
+offset_right = -301.0
+offset_bottom = 242.0
+text = "50"
+script = ExtResource("6_dwbse")
+
+[node name="BuildButton4" type="Button" parent="."]
+z_index = 1
+offset_left = 173.0
+offset_top = -122.0
+offset_right = 210.0
+offset_bottom = -91.0
+text = "50"
+script = ExtResource("6_dwbse")
+
+[node name="BuildButton5" type="Button" parent="."]
+z_index = 1
+offset_left = 207.0
+offset_top = 19.0
+offset_right = 244.0
+offset_bottom = 50.0
+text = "50"
+script = ExtResource("6_dwbse")
+
+[node name="BuildButton6" type="Button" parent="."]
+z_index = 1
+offset_left = 75.0
+offset_top = 197.0
+offset_right = 112.0
+offset_bottom = 228.0
+text = "50"
+script = ExtResource("6_dwbse")
+
+[node name="BuildButton7" type="Button" parent="."]
+z_index = 1
+offset_left = 385.0
+offset_top = 225.0
+offset_right = 422.0
+offset_bottom = 256.0
 text = "50"
 script = ExtResource("6_dwbse")

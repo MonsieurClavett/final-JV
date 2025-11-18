@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://bo4eabchwnwfy"]
+
+[ext_resource type="Texture2D" uid="uid://cppt10famxfc3" path="res://assets/Projectiles/Bullet 24x24 Free Part 3A.png" id="1_a85iw"]
+[ext_resource type="Script" uid="uid://c7d0r150nsl77" path="res://projectile.gd" id="1_qxf0c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxf0c"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(0, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgwo2"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(24, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxmqc"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(48, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xblw"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(72, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dac07"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(96, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0c7x6"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(120, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpwum"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(144, 50, 24, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsmhe"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(168, 50, 24, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1umjp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxf0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgwo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxmqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xblw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dac07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0c7x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpwum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsmhe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_qxf0c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 4
+sprite_frames = SubResource("SpriteFrames_1umjp")
+frame_progress = 0.46483985
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -7,7 +7,7 @@ extends Node2D
 @onready var hud: CanvasLayer = $HUD
 @onready var path: Path2D = $Path2DPath
 
-var gold: int = 50  # 50 gold au départ
+var gold: int = 500  # 50 gold au départ
 
 
 func _ready() -> void:

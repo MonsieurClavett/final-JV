@@ -1,6 +1,7 @@
-[gd_scene load_steps=349 format=3 uid="uid://bfwkrbo1n0snu"]
+[gd_scene load_steps=350 format=3 uid="uid://bfwkrbo1n0snu"]
 
 [ext_resource type="Script" uid="uid://cma7kthk4g718" path="res://tower.gd" id="1_k1sas"]
+[ext_resource type="PackedScene" uid="uid://bo4eabchwnwfy" path="res://projectile.tscn" id="2_2ebih"]
 [ext_resource type="Texture2D" uid="uid://bp72mfwu7cxsw" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_000.png" id="2_80afm"]
 [ext_resource type="Texture2D" uid="uid://4ruem2pdpo3h" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_112.png" id="3_2ebih"]
 [ext_resource type="Texture2D" uid="uid://ojly5368f6w5" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_135.png" id="4_wgpyl"]
@@ -1818,7 +1819,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"shoot_225",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2410,13 +2411,14 @@ animations = [{
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_k1sas")
+projectile_scene = ExtResource("2_2ebih")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 z_index = 5
 position = Vector2(22.000002, -4)
 scale = Vector2(0.46952394, 0.481941)
 sprite_frames = SubResource("SpriteFrames_nyvao")
-animation = &"shoot_270"
+animation = &"shoot_90"
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
 z_index = 5
