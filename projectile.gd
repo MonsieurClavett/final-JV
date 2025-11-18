@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var speed: float = 400.0
-@export var damage: int = 49
+@export var damage: int = 1
 
 var target: Node2D = null
 

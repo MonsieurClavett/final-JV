@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var projectile_scene: PackedScene
-@export var fire_rate: float = 1.0
+@export var fire_rate: float = 200.0
 var cooldown: float = 0.0
 
 @export var range: float = 160.0
@@ -77,8 +77,15 @@ func _shoot() -> void:
 		p.target = target
 
 
-func _is_valid_target(e: Node) -> bool:
-	return e != null and is_instance_valid(e) and e.is_inside_tree()
+func _is_valid_target(e) -> bool:
+	if e == null:
+		return false
+	if not is_instance_valid(e):
+		return false
+	if not (e is Node2D):
+		return false
+	return e.is_inside_tree()
+
 
 
 func _aim_at(pos: Vector2) -> void:

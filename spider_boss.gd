@@ -16,6 +16,10 @@ extends PathFollow2D
 var health: float
 var world_ref: Node = null
 var _last_global_pos: Vector2
+var _health_bar_full_width: float = 0.0
+var is_dying: bool = false
+
+
 
 
 func _ready() -> void:
@@ -23,6 +27,13 @@ func _ready() -> void:
 	_last_global_pos = global_position
 
 	health = max_health
+
+	# ⬇️ IMPORTANT : mémoriser la largeur AVANT de modifier la barre
+	if health_bar_fg:
+		_health_bar_full_width = health_bar_fg.size.x
+		if _health_bar_full_width <= 0.0:
+			_health_bar_full_width = 40.0  # valeur par défaut si jamais c'est 0
+
 	_update_health_bar()
 
 	if body and body.sprite_frames.has_animation(anim_prefix + "0"):
@@ -31,10 +42,13 @@ func _ready() -> void:
 		shadow.play("walk_shadow_0")
 
 
+
 func _process(delta: float) -> void:
+	if is_dying:
+		return  # ne plus bouger / tourner pendant la mort
+
 	progress += speed * delta
 
-	# la vie ne descend plus toute seule, on laisse les projectiles gérer
 	_update_health_bar()
 
 	var cur: Vector2 = global_position
@@ -47,7 +61,11 @@ func _process(delta: float) -> void:
 		queue_free()
 
 
+
 func take_damage(amount: float) -> void:
+	if is_dying:
+		return  # ignore les dégâts une fois la mort démarrée
+
 	health -= amount
 	if health <= 0.0:
 		health = 0.0
@@ -58,9 +76,37 @@ func take_damage(amount: float) -> void:
 
 
 func die() -> void:
+	if is_dying:
+		return
+	is_dying = true
+
 	if world_ref:
 		world_ref.add_gold(reward)
+
+	set_process(false)
+	set_physics_process(false)
+	set_process(true) # juste pour que l'await fonctionne si tu l'utilises dans die()
+
+	var has_death_anim := false
+
+	if body and body.sprite_frames.has_animation("death"):
+		body.play("death")
+		has_death_anim = true
+
+	if shadow and shadow.sprite_frames and shadow.sprite_frames.has_animation("death"):
+		shadow.play("death")
+
+	if has_death_anim:
+		await body.animation_finished
+		await get_tree().create_timer(0.5).timeout  # 0.5s après la fin
+
+	remove_from_group("enemies")
+	set_process(false)
+	set_physics_process(false)
 	queue_free()
+
+
+
 
 
 func _update_direction_animation(dir: Vector2) -> void:
@@ -95,7 +141,10 @@ func _update_health_bar() -> void:
 	if max_health > 0.0:
 		ratio = clamp(health / max_health, 0.0, 1.0)
 
-	health_bar_fg.scale.x = ratio
+	# largeur initiale * ratio
+	var full_width: float = _health_bar_full_width
+	health_bar_fg.size.x = full_width * ratio
 
-	var color := Color(1.0 - ratio, ratio, 0.0)
+	# couleur vert -> rouge
+	var color: Color = Color(1.0 - ratio, ratio, 0.0)
 	health_bar_fg.color = color
