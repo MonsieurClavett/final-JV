@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var projectile_scene: PackedScene
-@export var fire_rate: float = 200.0
+@export var fire_rate: float = 10.0
 var cooldown: float = 0.0
 
 @export var range: float = 160.0

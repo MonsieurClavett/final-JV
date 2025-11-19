@@ -308,6 +308,7 @@ zoom = Vector2(1.4, 1.4)
 [node name="Path2DPath" type="Path2D" parent="."]
 position = Vector2(-831, -140)
 curve = SubResource("Curve2D_tlwt5")
+metadata/_edit_lock_ = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("4_aqk2v")

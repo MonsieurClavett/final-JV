@@ -733,9 +733,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vb8c4")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1903,9 +1903,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_brb2o")
 }],
-"loop": true,
-"name": &"death_shadow",
-"speed": 10.0
+"loop": false,
+"name": &"death",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2370,10 +2370,31 @@ script = ExtResource("1_l1y2r")
 z_index = 1
 scale = Vector2(0.5705174, 0.5435557)
 sprite_frames = SubResource("SpriteFrames_8a5wl")
-animation = &"run_0"
+animation = &"death"
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -1)
 scale = Vector2(0.57077646, 0.53758514)
 sprite_frames = SubResource("SpriteFrames_0eusu")
-animation = &"run_0"
+animation = &"death"
+
+[node name="HealthBar" type="Node2D" parent="."]
+
+[node name="BG" type="ColorRect" parent="HealthBar"]
+z_index = 9
+offset_left = -19.880562
+offset_top = -27.684212
+offset_right = 20.119438
+offset_bottom = 12.315788
+scale = Vector2(1.0399747, 0.068508804)
+color = Color(0.2, 0.2, 0.2, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="FG" type="ColorRect" parent="HealthBar"]
+z_index = 10
+offset_left = -19.880562
+offset_top = -27.684212
+offset_right = 20.119438
+offset_bottom = 12.315788
+scale = Vector2(1.0399747, 0.068508804)
+color = Color(0, 1, 0, 1)
