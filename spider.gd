@@ -19,9 +19,8 @@ func _ready() -> void:
 	_last_global_pos = global_position
 	health = max_health
 
-	add_to_group("enemies")  # pour que la tour puisse la cibler
+	add_to_group("enemies") 
 
-	# mémorise la largeur initiale de la barre de vie
 	if health_bar_fg:
 		_health_bar_full_width = health_bar_fg.size.x
 		if _health_bar_full_width <= 0.0:
@@ -29,7 +28,6 @@ func _ready() -> void:
 
 	_update_health_bar()
 
-	# anim de base
 	if body and body.sprite_frames.has_animation("run_0"):
 		body.play("run_0")
 	if shadow and shadow.sprite_frames.has_animation("run_0"):
@@ -38,9 +36,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if is_dying:
-		return  # ne plus bouger si en train de mourir
+		return  
 
-	# avance sur le chemin
 	progress += speed * delta
 
 	var current_pos: Vector2 = global_position
@@ -49,12 +46,10 @@ func _process(delta: float) -> void:
 		_update_direction_animation(move)
 	_last_global_pos = current_pos
 
-	# Fin du chemin → tu pourras mettre des dégâts au joueur plus tard
 	if progress_ratio >= 1.0:
 		queue_free()
 
 
-# --- dégâts depuis les projectiles ---
 func take_damage(amount: float) -> void:
 	if is_dying:
 		return
@@ -73,18 +68,15 @@ func die() -> void:
 		return
 	is_dying = true
 
-	# donner le gold tout de suite si world_ref est branché
 	if world_ref and world_ref.has_method("add_gold"):
 		world_ref.add_gold(reward)
 
 	var has_death_anim: bool = false
 
-	# animation de mort du body
 	if body and body.sprite_frames.has_animation("death"):
 		body.play("death")
 		has_death_anim = true
 
-	# animation de mort de l'ombre (même nom "death", change si besoin)
 	if shadow and shadow.sprite_frames and shadow.sprite_frames.has_animation("death"):
 		shadow.play("death")
 
@@ -94,7 +86,6 @@ func die() -> void:
 	queue_free()
 
 
-# --- direction / anim de course ---
 func _update_direction_animation(dir: Vector2) -> void:
 	if body == null:
 		return
@@ -103,7 +94,6 @@ func _update_direction_animation(dir: Vector2) -> void:
 	if angle < 0.0:
 		angle += 360.0
 
-	# 8 directions : 0, 45, 90, ..., 315
 	var step: float = 45.0
 	var index: int = int(round(angle / step)) % 8
 	var snapped_angle: int = index * int(step)
@@ -115,7 +105,6 @@ func _update_direction_animation(dir: Vector2) -> void:
 		shadow.play(anim_name)
 
 
-# --- health bar ---
 func _update_health_bar() -> void:
 	if health_bar_fg == null:
 		return
@@ -127,6 +116,5 @@ func _update_health_bar() -> void:
 	var full_width: float = _health_bar_full_width
 	health_bar_fg.size.x = full_width * ratio
 
-	# vert → rouge
 	var color: Color = Color(1.0 - ratio, ratio, 0.0)
 	health_bar_fg.color = color

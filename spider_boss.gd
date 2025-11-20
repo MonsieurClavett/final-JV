@@ -28,11 +28,10 @@ func _ready() -> void:
 
 	health = max_health
 
-	# ⬇️ IMPORTANT : mémoriser la largeur AVANT de modifier la barre
 	if health_bar_fg:
 		_health_bar_full_width = health_bar_fg.size.x
 		if _health_bar_full_width <= 0.0:
-			_health_bar_full_width = 40.0  # valeur par défaut si jamais c'est 0
+			_health_bar_full_width = 40.0  
 
 	_update_health_bar()
 
@@ -45,7 +44,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if is_dying:
-		return  # ne plus bouger / tourner pendant la mort
+		return  
 
 	progress += speed * delta
 
@@ -64,7 +63,7 @@ func _process(delta: float) -> void:
 
 func take_damage(amount: float) -> void:
 	if is_dying:
-		return  # ignore les dégâts une fois la mort démarrée
+		return  
 
 	health -= amount
 	if health <= 0.0:
@@ -85,7 +84,7 @@ func die() -> void:
 
 	set_process(false)
 	set_physics_process(false)
-	set_process(true) # juste pour que l'await fonctionne si tu l'utilises dans die()
+	set_process(true) 
 
 	var has_death_anim := false
 
@@ -98,7 +97,7 @@ func die() -> void:
 
 	if has_death_anim:
 		await body.animation_finished
-		await get_tree().create_timer(0.5).timeout  # 0.5s après la fin
+		await get_tree().create_timer(0.5).timeout 
 
 	remove_from_group("enemies")
 	set_process(false)

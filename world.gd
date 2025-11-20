@@ -7,7 +7,7 @@ extends Node2D
 @onready var hud: CanvasLayer = $HUD
 @onready var path: Path2D = $Path2DPath
 
-var gold: int = 500  # 50 gold au départ
+var gold: int = 500  
 
 
 func _ready() -> void:
@@ -43,7 +43,6 @@ func spawn_spider() -> void:
 	if s is PathFollow2D:
 		(s as PathFollow2D).progress = 0.0
 
-	# ⬇️ Donne la référence du monde à la spider
 	if "world_ref" in s:
 		s.world_ref = self
 
@@ -58,7 +57,6 @@ func spawn_spider_boss() -> void:
 	if b is PathFollow2D:
 		(b as PathFollow2D).progress = 0.0
 
-	# ⬇️ Donne la référence du monde à la boss aussi
 	if "world_ref" in b:
 		b.world_ref = self
 

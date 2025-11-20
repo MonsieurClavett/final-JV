@@ -8,7 +8,7 @@ var cooldown: float = 0.0
 @export var retarget_interval: float = 0.2
 @export var dir_step_deg: float = 22.5
 @export var anim_prefix: String = "shoot_"
-@export var anim_angle_offset: float = 90.0   # adapte selon ton sprite
+@export var anim_angle_offset: float = 90.0  
 
 @onready var body: AnimatedSprite2D = $Body
 
@@ -35,7 +35,6 @@ func _physics_process(delta: float) -> void:
 	cooldown -= delta
 	_retarget_t -= delta
 
-	# (re)cibler périodiquement
 	if _retarget_t <= 0.0 or not _is_valid_target(target):
 		_retarget_t = retarget_interval
 		target = _find_target()
@@ -72,7 +71,6 @@ func _shoot() -> void:
 	get_tree().current_scene.add_child(p)
 	p.global_position = global_position
 
-	# passe la cible au projectile
 	if "target" in p:
 		p.target = target
 
@@ -110,5 +108,4 @@ func _aim_at(pos: Vector2) -> void:
 
 
 func _draw() -> void:
-	# cercle de portée (arc rouge)
 	draw_arc(Vector2.ZERO, range, 0, TAU, 64, Color(1, 0, 0))
