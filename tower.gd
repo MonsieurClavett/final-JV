@@ -1,14 +1,22 @@
 extends Node2D
 
 @export var projectile_scene: PackedScene
-@export var fire_rate: float = 10.0
+@export var fire_rate: float = 2.0
 var cooldown: float = 0.0
 
-@export var range: float = 160.0
+@export var range: float = 200.0
 @export var retarget_interval: float = 0.2
 @export var dir_step_deg: float = 22.5
 @export var anim_prefix: String = "shoot_"
-@export var anim_angle_offset: float = 90.0  
+@export var anim_angle_offset: float = 90.0
+
+# --- UPGRADES ---
+@export var upgrade_button_scene: PackedScene
+@export var upgrade_costs: PackedInt32Array = [100, 200]  # ← ici tes coûts successifs
+
+var upgrade_index: int = 0
+var world_ref: Node = null
+var upgrade_button_ref: Button = null
 
 @onready var body: AnimatedSprite2D = $Body
 
@@ -25,21 +33,25 @@ func _ready() -> void:
 	if body.sprite_frames and body.sprite_frames.has_animation(default_anim):
 		body.play(default_anim)
 
-	queue_redraw()
+
+# appelé par World après placement
+func init(world: Node) -> void:
+	world_ref = world
+	_spawn_upgrade_button()
 
 
 func _physics_process(delta: float) -> void:
-	if body == null:
-		return
-
 	cooldown -= delta
 	_retarget_t -= delta
 
-	if _retarget_t <= 0.0 or not _is_valid_target(target):
+	if not _is_valid_target(target):
+		target = null
+
+	if _retarget_t <= 0.0 or target == null:
 		_retarget_t = retarget_interval
 		target = _find_target()
 
-	if _is_valid_target(target):
+	if target:
 		_aim_at(target.global_position)
 		if cooldown <= 0.0:
 			_shoot()
@@ -70,20 +82,12 @@ func _shoot() -> void:
 	var p: Node2D = projectile_scene.instantiate()
 	get_tree().current_scene.add_child(p)
 	p.global_position = global_position
-
 	if "target" in p:
 		p.target = target
 
 
 func _is_valid_target(e) -> bool:
-	if e == null:
-		return false
-	if not is_instance_valid(e):
-		return false
-	if not (e is Node2D):
-		return false
-	return e.is_inside_tree()
-
+	return e != null and is_instance_valid(e) and e.is_inside_tree()
 
 
 func _aim_at(pos: Vector2) -> void:
@@ -102,10 +106,49 @@ func _aim_at(pos: Vector2) -> void:
 	var snapped_deg: int = int(step_idx * dir_step_deg)
 
 	var anim_name := "%s%d" % [anim_prefix, snapped_deg]
-
 	if body.sprite_frames.has_animation(anim_name) and body.animation != anim_name:
 		body.play(anim_name)
 
 
-func _draw() -> void:
-	draw_arc(Vector2.ZERO, range, 0, TAU, 64, Color(1, 0, 0))
+# ---------- UPGRADE ----------
+func get_current_upgrade_cost() -> int:
+	if upgrade_index >= upgrade_costs.size():
+		return 0
+	return upgrade_costs[upgrade_index]
+
+
+func try_upgrade(world: Node) -> bool:
+	var cost: int = get_current_upgrade_cost()
+	if cost <= 0:
+		return false
+
+	if world == null or not world.has_method("spend_gold"):
+		push_error("Tower: world invalide ou pas spend_gold()")
+		return false
+
+	var ok: bool = world.spend_gold(cost)
+	if not ok:
+		print("Pas assez d'or pour upgrade")
+		return false
+
+	# 🔥 upgrade: double fire_rate
+	fire_rate *= 3.0
+	upgrade_index += 1
+
+	print("✅ Upgrade OK. fire_rate =", fire_rate, "next cost =", get_current_upgrade_cost())
+	return true
+
+
+func _spawn_upgrade_button() -> void:
+	if upgrade_button_scene == null or world_ref == null:
+		return
+
+	var btn: Button = upgrade_button_scene.instantiate()
+	add_child(btn)
+	btn.position = Vector2(0, 25)
+	btn.z_index = 100
+
+	upgrade_button_ref = btn
+
+	if btn.has_method("setup"):
+		btn.setup(self, world_ref)

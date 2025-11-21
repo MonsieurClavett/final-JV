@@ -1,9 +1,10 @@
-[gd_scene load_steps=350 format=3 uid="uid://bfwkrbo1n0snu"]
+[gd_scene load_steps=351 format=3 uid="uid://bfwkrbo1n0snu"]
 
 [ext_resource type="Script" uid="uid://cma7kthk4g718" path="res://tower.gd" id="1_k1sas"]
 [ext_resource type="PackedScene" uid="uid://bo4eabchwnwfy" path="res://projectile.tscn" id="2_2ebih"]
 [ext_resource type="Texture2D" uid="uid://bp72mfwu7cxsw" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_000.png" id="2_80afm"]
 [ext_resource type="Texture2D" uid="uid://4ruem2pdpo3h" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_112.png" id="3_2ebih"]
+[ext_resource type="PackedScene" uid="uid://dsg088uxws2gg" path="res://upgrade_button.tscn" id="3_wgpyl"]
 [ext_resource type="Texture2D" uid="uid://ojly5368f6w5" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_135.png" id="4_wgpyl"]
 [ext_resource type="Texture2D" uid="uid://5aglrxnqydo" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_157.png" id="5_g44d5"]
 [ext_resource type="Texture2D" uid="uid://ckii386dictur" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_180.png" id="6_xgu8j"]
@@ -2412,6 +2413,7 @@ animations = [{
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_k1sas")
 projectile_scene = ExtResource("2_2ebih")
+upgrade_button_scene = ExtResource("3_wgpyl")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 z_index = 5
@@ -2427,3 +2429,12 @@ scale = Vector2(0.46952394, 0.481941)
 sprite_frames = SubResource("SpriteFrames_wgpyl")
 animation = &"idle"
 frame_progress = 0.9109897
+
+[node name="LevelLabel" type="Label" parent="."]
+visible = false
+z_index = 5
+offset_left = 3.0
+offset_top = -70.0
+offset_right = 43.0
+offset_bottom = -47.0
+text = "Lv 1"

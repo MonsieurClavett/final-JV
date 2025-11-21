@@ -31,7 +31,21 @@ func try_buy_tower(cost: int, world_pos: Vector2) -> bool:
 	var tower := tower_scene.instantiate()
 	add_child(tower)
 	tower.global_position = world_pos
+
+	# ✅ init la tour avec la ref du world
+	if tower.has_method("init"):
+		tower.init(self)
+
 	return true
+func spend_gold(amount: int) -> bool:
+	if gold < amount:
+		return false
+	gold -= amount
+	if hud:
+		hud.update_gold(gold)
+	return true
+
+
 
 func spawn_spider() -> void:
 	if spider_scene == null:
