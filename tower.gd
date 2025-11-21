@@ -1,8 +1,16 @@
 extends Node2D
 
+@export var upgrade_colors: PackedColorArray = PackedColorArray([
+	Color(1, 1, 1),          # niveau 1 (normal)
+	Color(0.6, 0.8, 1.0),    # niveau 2 (bleu)
+	Color(0.981, 0.478, 1.0, 1.0)     # niveau 3 (mauve)
+])
+
+
 @export var projectile_scene: PackedScene
 @export var fire_rate: float = 2.0
 var cooldown: float = 0.0
+
 
 @export var range: float = 200.0
 @export var retarget_interval: float = 0.2
@@ -12,13 +20,15 @@ var cooldown: float = 0.0
 
 # --- UPGRADES ---
 @export var upgrade_button_scene: PackedScene
-@export var upgrade_costs: PackedInt32Array = [100, 200]  # ← ici tes coûts successifs
+@export var upgrade_costs: PackedInt32Array = PackedInt32Array([100, 200])
 
 var upgrade_index: int = 0
 var world_ref: Node = null
 var upgrade_button_ref: Button = null
 
 @onready var body: AnimatedSprite2D = $Body
+@onready var shadow: AnimatedSprite2D = $Shadow
+
 
 var target: Node2D = null
 var _retarget_t: float = 0.0
@@ -32,6 +42,8 @@ func _ready() -> void:
 	var default_anim := "%s0" % anim_prefix
 	if body.sprite_frames and body.sprite_frames.has_animation(default_anim):
 		body.play(default_anim)
+		
+	_apply_upgrade_color()
 
 
 # appelé par World après placement
@@ -134,6 +146,7 @@ func try_upgrade(world: Node) -> bool:
 	# 🔥 upgrade: double fire_rate
 	fire_rate *= 3.0
 	upgrade_index += 1
+	_apply_upgrade_color()
 
 	print("✅ Upgrade OK. fire_rate =", fire_rate, "next cost =", get_current_upgrade_cost())
 	return true
@@ -152,3 +165,14 @@ func _spawn_upgrade_button() -> void:
 
 	if btn.has_method("setup"):
 		btn.setup(self, world_ref)
+		
+func _apply_upgrade_color() -> void:
+	var idx: int = clampi(upgrade_index, 0, upgrade_colors.size() - 1)
+	var c: Color = upgrade_colors[idx]
+
+	if body:
+		body.modulate = c
+
+	# optionnel : ombre un peu plus visible avec le level
+	if shadow:
+		shadow.modulate = Color(1, 1, 1, 0.6)
