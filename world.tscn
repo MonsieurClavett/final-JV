@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://7soesushrrrk"]
+[gd_scene load_steps=15 format=4 uid="uid://7soesushrrrk"]
 
 [ext_resource type="Texture2D" uid="uid://5trmdp2feoc0" path="res://assets/tiles/spritesheet.png" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://j1c5gof2qyc0" path="res://world.gd" id="1_fj7yv"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://q2yyubmussjv" path="res://hud.gd" id="4_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://dghcicylv512g" path="res://spider_boss.tscn" id="4_gbfbk"]
 [ext_resource type="Script" uid="uid://b4pa7hk2feeju" path="res://build_button.gd" id="6_dwbse"]
+[ext_resource type="AudioStream" uid="uid://cmixconb4m50c" path="res://audio/short-game-music-loop-38898.mp3" id="8_gbfbk"]
+[ext_resource type="Script" uid="uid://rh3kbsy5thpp" path="res://debug_vectors.gd" id="9_ioo17"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
 texture = ExtResource("1_aqk2v")
@@ -359,6 +361,15 @@ text = "Recommencer"
 layout_mode = 2
 text = "Quitter"
 
+[node name="DebugLabel" type="Label" parent="HUD"]
+z_index = 17
+offset_left = 13.0
+offset_top = 513.0
+offset_right = 92.0
+offset_bottom = 555.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+
 [node name="BuildButton" type="Button" parent="."]
 z_index = 1
 offset_left = -144.0
@@ -421,3 +432,11 @@ offset_right = 422.0
 offset_bottom = 256.0
 text = "50"
 script = ExtResource("6_dwbse")
+
+[node name="AudioMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_gbfbk")
+autoplay = true
+parameters/looping = true
+
+[node name="DebugVectors" type="Node2D" parent="."]
+script = ExtResource("9_ioo17")

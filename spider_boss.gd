@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-@export var speed: float = 200.0
+@export var speed: float = 150.0
 @export var reward: int = 50
 
 @export var dir_step_deg: float = 22.5

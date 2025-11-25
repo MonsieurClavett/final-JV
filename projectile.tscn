@@ -64,7 +64,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 100.0
 }]
 
 [node name="Projectile" type="Node2D"]
@@ -73,4 +73,4 @@ script = ExtResource("1_qxf0c")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 4
 sprite_frames = SubResource("SpriteFrames_1umjp")
-frame_progress = 0.2285316
+frame_progress = 0.49722445

@@ -2,14 +2,15 @@ extends Node2D
 
 @export var upgrade_colors: PackedColorArray = PackedColorArray([
 	Color(1, 1, 1),          # niveau 1 (normal)
-	Color(0.6, 0.8, 1.0),    # niveau 2 (bleu)
-	Color(0.981, 0.478, 1.0, 1.0)     # niveau 3 (mauve)
+	Color(0.78, 0.002, 0.942, 1.0),    # niveau 2 (bleu)
+	Color(0.866, 0.0, 0.157, 1.0)     # niveau 3 (mauve)
 ])
 
 
 @export var projectile_scene: PackedScene
 @export var fire_rate: float = 2.0
 var cooldown: float = 0.0
+var debug_enabled: bool = false
 
 
 @export var range: float = 200.0
@@ -35,6 +36,7 @@ var _retarget_t: float = 0.0
 
 
 func _ready() -> void:
+	add_to_group("towers")
 	if body == null:
 		push_error("Tower.gd: node 'Body' introuvable")
 		return
@@ -68,6 +70,9 @@ func _physics_process(delta: float) -> void:
 		if cooldown <= 0.0:
 			_shoot()
 			cooldown = 1.0 / fire_rate
+			
+	if debug_enabled:
+		queue_redraw()
 
 
 func _find_target() -> Node2D:
@@ -176,3 +181,10 @@ func _apply_upgrade_color() -> void:
 	# optionnel : ombre un peu plus visible avec le level
 	if shadow:
 		shadow.modulate = Color(1, 1, 1, 0.6)
+		
+func _draw() -> void:
+	if not debug_enabled:
+		return
+
+	# cercle de portée en rouge
+	draw_arc(Vector2.ZERO, range, 0, TAU, 64, Color(1, 0, 0), 2.0)

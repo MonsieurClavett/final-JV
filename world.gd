@@ -19,6 +19,7 @@ var gold: int = 500
 var wave_index: int = 0
 var _time_until_next_wave: float = 1.0
 var _is_spawning_wave: bool = false
+var debug_mode: bool = false
 
 var game_over_bool: bool = false
 
@@ -155,3 +156,24 @@ func game_over() -> void:
 		hud.show_game_over()
 
 	get_tree().paused = true
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_toggle"):
+		debug_mode = not debug_mode
+		_apply_debug_mode()
+		
+func _apply_debug_mode() -> void:
+	get_tree().debug_collisions_hint = debug_mode
+
+	if hud and hud.has_method("set_debug_mode"):
+		hud.set_debug_mode(debug_mode)
+
+	if has_node("DebugVectors"):
+		$DebugVectors.enabled = debug_mode
+
+	# ⬇️ activer le mode debug sur toutes les tours
+	var towers = get_tree().get_nodes_in_group("towers")
+	for t in towers:
+		if "debug_enabled" in t:
+			t.debug_enabled = debug_mode
+			t.queue_redraw()
