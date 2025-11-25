@@ -78,6 +78,7 @@ func die() -> void:
 	if is_dying:
 		return
 	is_dying = true
+	remove_from_group("enemies")
 
 	if world_ref:
 		world_ref.add_gold(reward)

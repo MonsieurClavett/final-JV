@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-@export var speed: float = 60.0
+@export var speed: float = 160.0
 @export var max_health: float = 10.0
 @export var reward: int = 10
 
@@ -67,6 +67,9 @@ func die() -> void:
 	if is_dying:
 		return
 	is_dying = true
+
+	# ⬇ très important : ne plus faire partie des cibles
+	remove_from_group("enemies")
 
 	if world_ref and world_ref.has_method("add_gold"):
 		world_ref.add_gold(reward)
