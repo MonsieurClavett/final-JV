@@ -345,6 +345,20 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
 text = "GAME OVER"
 
+[node name="GameOverMenu" type="VBoxContainer" parent="HUD"]
+offset_left = 508.0
+offset_top = 325.0
+offset_right = 628.0
+offset_bottom = 391.0
+
+[node name="RestartButton" type="Button" parent="HUD/GameOverMenu"]
+layout_mode = 2
+text = "Recommencer"
+
+[node name="ExitButton" type="Button" parent="HUD/GameOverMenu"]
+layout_mode = 2
+text = "Quitter"
+
 [node name="BuildButton" type="Button" parent="."]
 z_index = 1
 offset_left = -144.0

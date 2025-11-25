@@ -151,9 +151,7 @@ func game_over() -> void:
 
 	print("World: GAME OVER")
 
-	# d'abord afficher dans le HUD
 	if hud and hud.has_method("show_game_over"):
 		hud.show_game_over()
 
-	# ensuite seulement on met le jeu en pause
 	get_tree().paused = true
