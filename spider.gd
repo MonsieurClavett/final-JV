@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-@export var speed: float = 160.0
+@export var speed: float = 400.0
 @export var max_health: float = 10.0
 @export var reward: int = 10
 
@@ -47,6 +47,8 @@ func _process(delta: float) -> void:
 	_last_global_pos = current_pos
 
 	if progress_ratio >= 1.0:
+		if world_ref and world_ref.has_method("game_over"):
+			world_ref.game_over()
 		queue_free()
 
 

@@ -334,6 +334,17 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 31
 text = "Wave: 1"
 
+[node name="GameOverLabel" type="Label" parent="HUD"]
+z_index = 16
+offset_left = 424.0
+offset_top = 247.0
+offset_right = 710.0
+offset_bottom = 316.0
+theme_override_colors/font_color = Color(0.898721, 0, 0.2905429, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "GAME OVER"
+
 [node name="BuildButton" type="Button" parent="."]
 z_index = 1
 offset_left = -144.0

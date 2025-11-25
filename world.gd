@@ -20,6 +20,7 @@ var wave_index: int = 0
 var _time_until_next_wave: float = 1.0
 var _is_spawning_wave: bool = false
 
+var game_over_bool: bool = false
 
 func _ready() -> void:
 	if hud:
@@ -142,3 +143,17 @@ func _spawn_wave_for_index_impl(wave: int) -> void:
 	# prépare la prochaine vague
 	_time_until_next_wave = wave_rest_time
 	_is_spawning_wave = false
+	
+func game_over() -> void:
+	if game_over_bool:
+		return
+	game_over_bool = true
+
+	print("World: GAME OVER")
+
+	# d'abord afficher dans le HUD
+	if hud and hud.has_method("show_game_over"):
+		hud.show_game_over()
+
+	# ensuite seulement on met le jeu en pause
+	get_tree().paused = true

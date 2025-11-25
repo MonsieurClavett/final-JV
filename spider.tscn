@@ -2364,6 +2364,7 @@ animations = [{
 [node name="Spider" type="PathFollow2D"]
 scale = Vector2(0.85510665, 0.86692005)
 rotates = false
+loop = false
 script = ExtResource("1_l1y2r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -4891,6 +4891,7 @@ animations = [{
 [node name="spiderBoss" type="PathFollow2D"]
 scale = Vector2(0.52700514, 0.56115097)
 rotates = false
+loop = false
 script = ExtResource("1_sgibl")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
