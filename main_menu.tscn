@@ -1,0 +1,403 @@
+[gd_scene load_steps=30 format=3 uid="uid://bcavdlyducf3l"]
+
+[ext_resource type="Script" uid="uid://ckrq80ulda2rh" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="PackedScene" uid="uid://7soesushrrrk" path="res://world.tscn" id="2_fu7sn"]
+[ext_resource type="Texture2D" uid="uid://c6kfp4ads0ayv" path="res://assets/menu/9391cdafe739ae11eeb04b904835e643-ezgif.com-gif-to-sprite-converter.png" id="3_fu7sn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jix8l"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1500, 0, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glbon"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(2000, 0, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlkkf"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(0, 280, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qe12f"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(500, 280, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qtwp"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1000, 280, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy7ct"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1500, 280, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o4t1"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(2000, 280, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k4wn"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(0, 560, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5v2v"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(500, 560, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iotk1"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1000, 560, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w44g7"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1500, 560, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cm266"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(2000, 560, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8g3n"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(0, 840, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u0te"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(500, 840, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiatc"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1000, 840, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg3m2"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1500, 840, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojb7r"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(2000, 840, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5qqf"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(0, 1120, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bbuq"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(500, 1120, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_saq78"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1000, 1120, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uw0o"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(1500, 1120, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql5ya"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(2000, 1120, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka3nr"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(0, 1400, 500, 280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48knj"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(500, 1400, 500, 280)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m2y5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jix8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glbon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlkkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qe12f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qtwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy7ct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o4t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k4wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5v2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iotk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w44g7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cm266")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8g3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u0te")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiatc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mg3m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojb7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5qqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bbuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_saq78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8uw0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql5ya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ka3nr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48knj")
+}],
+"loop": true,
+"name": &"bg",
+"speed": 15.0
+}]
+
+[sub_resource type="FontFile" id="FontFile_fu7sn"]
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7vrkn")
+game_scene = ExtResource("2_fu7sn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(582, 318.00003)
+scale = Vector2(2.3202603, 2.5067782)
+sprite_frames = SubResource("SpriteFrames_m2y5l")
+animation = &"bg"
+frame_progress = 0.4749686
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -42.999996
+offset_top = -28.999998
+offset_right = -2.9999962
+offset_bottom = 11.000002
+scale = Vector2(31.053883, 17.70117)
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 14.362133
+offset_top = 3.27662
+offset_right = 115.36214
+offset_bottom = 58.27662
+scale = Vector2(0.1030333, 0.13900372)
+theme_override_colors/font_color = Color(0.9426212, 0.54513234, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_fu7sn")
+theme_override_font_sizes/font_size = 40
+text = "𝕋𝕚𝕥𝕝𝕖"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 12.365604
+offset_top = 10.846741
+offset_right = 113.3656
+offset_bottom = 41.84674
+scale = Vector2(0.059296105, 0.110654734)
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 11.914774
+offset_top = 15.761673
+offset_right = 112.91477
+offset_bottom = 46.761673
+scale = Vector2(0.06250159, 0.114500396)
+text = "Settings"
+
+[node name="ControlsButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 11.946976
+offset_top = 20.620104
+offset_right = 112.946976
+offset_bottom = 51.620106
+scale = Vector2(0.06233433, 0.11189678)
+text = "Controls"
+
+[node name="InstructionsButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 12.333401
+offset_top = 25.309061
+offset_right = 113.333405
+offset_bottom = 56.309063
+scale = Vector2(0.06233433, 0.1118968)
+text = "Instructions"
+
+[node name="QuitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 12.462208
+offset_top = 30.449963
+offset_right = 113.462204
+offset_bottom = 61.449963
+scale = Vector2(0.06233433, 0.11189678)
+theme_override_colors/font_outline_color = Color(0, 0.48802227, 0.2995677, 1)
+text = "Quit"
+
+[node name="SettingsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -15.999939
+offset_top = -18.999985
+offset_right = 24.000061
+offset_bottom = 21.000015
+scale = Vector2(29.700745, 17.247192)
+
+[node name="MusicLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 10.235431
+offset_top = 10.4364805
+offset_right = 56.23543
+offset_bottom = 33.43648
+scale = Vector2(0.12564607, 0.2590415)
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 17.3733
+offset_top = 12.407816
+offset_right = 63.3733
+offset_bottom = 28.407816
+scale = Vector2(0.055964198, 0.1607738)
+value = 100.0
+
+[node name="SfxLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 10.067086
+offset_top = 18.031921
+offset_right = 56.067085
+offset_bottom = 41.03192
+scale = Vector2(0.12093112, 0.2302349)
+text = "SFX"
+
+[node name="SfxSlider" type="HSlider" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 16.733585
+offset_top = 20.003258
+offset_right = 62.733585
+offset_bottom = 36.003258
+scale = Vector2(0.055964198, 0.1607738)
+value = 100.0
+
+[node name="BackFromSettings" type="Button" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 16.733585
+offset_top = 27.250809
+offset_right = 62.733585
+offset_bottom = 58.25081
+scale = Vector2(0.12399279, 0.17155677)
+text = "Back"
+
+[node name="ControlsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -41.0
+offset_top = -29.999998
+offset_right = -1.0
+offset_bottom = 10.000002
+scale = Vector2(30.478285, 18.223778)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ControlsPanel"]
+layout_mode = 0
+offset_left = 6.1683264
+offset_top = 9.547966
+offset_right = 816.16833
+offset_bottom = 188.54797
+scale = Vector2(0.03737879, 0.102785565)
+theme_override_constants/shadow_outline_size = 4
+theme_override_constants/outline_size = 8
+text = "Cliquez sur les tuiles bleues pour afficher le bouton Acheter (50).
+
+Cliquez sur le bouton Acheter pour placer une tour.
+
+Cliquez sur le bouton Upgrade sous une tour pour l’améliorer.
+
+Appuyez sur F1 pour afficher/cacher les informations de débogage (FPS, collisions, portée des tours, etc.)."
+
+[node name="BackFromControls" type="Button" parent="ControlsPanel"]
+layout_mode = 0
+offset_left = 17.094137
+offset_top = 30.180355
+offset_right = 62.09414
+offset_bottom = 61.18036
+scale = Vector2(0.10478674, 0.10318502)
+text = "Back"
+
+[node name="InstructionsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -82.0
+offset_top = -40.0
+offset_right = -42.0
+scale = Vector2(32.231045, 18.288977)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="InstructionsPanel"]
+layout_mode = 0
+offset_left = 8.377016
+offset_top = 5.850518
+offset_right = 545.377
+offset_bottom = 236.85052
+scale = Vector2(0.044593956, 0.09001594)
+theme_override_constants/outline_size = 5
+text = "Règles :
+
+Chaque ennemi qui atteint la fin du trajet provoque la fin de la partie.
+
+Tuer des araignées normales donne 10 or.
+
+Tuer une araignée boss donne 50 or.
+
+L’or permet d’acheter et d’améliorer des tours."
+
+[node name="BackFromInstructions" type="Button" parent="InstructionsPanel"]
+layout_mode = 0
+offset_left = 17.591736
+offset_top = 28.159039
+offset_right = 62.591736
+offset_bottom = 59.15904
+scale = Vector2(0.123144984, 0.1635207)
+text = "Back"

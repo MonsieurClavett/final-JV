@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Final"
-run/main_scene="uid://7soesushrrrk"
+run/main_scene="uid://bcavdlyducf3l"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[global]
+
+Music=false
 
 [input]
 
