@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bcavdlyducf3l"]
+[gd_scene load_steps=35 format=3 uid="uid://bcavdlyducf3l"]
 
 [ext_resource type="Script" uid="uid://ckrq80ulda2rh" path="res://main_menu.gd" id="1_7vrkn"]
 [ext_resource type="PackedScene" uid="uid://7soesushrrrk" path="res://world.tscn" id="2_fu7sn"]
@@ -192,6 +192,75 @@ cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu7sn"]
+bg_color = Color(0.7040301, 0.5392596, 0.67612517, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0.66039276, 0.34506157, 0.6670004, 0.6)
+shadow_size = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jix8l"]
+bg_color = Color(0.7102119, 0.00016258568, 0.6375687, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glbon"]
+bg_color = Color(0.9498716, 0.6797121, 0.98605794, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe12f"]
+content_margin_top = 4.0
+bg_color = Color(0.54836226, 0.0007117576, 0.64635575, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlkkf"]
+bg_color = Color(0.8711105, 0.27310318, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0.62879086, 0.00391072, 0.968182, 0.6)
+shadow_size = 2
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -209,8 +278,8 @@ sprite_frames = SubResource("SpriteFrames_m2y5l")
 animation = &"bg"
 frame_progress = 0.4749686
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
+[node name="Panel" type="Control" parent="."]
+anchors_preset = 0
 offset_left = -42.999996
 offset_top = -28.999998
 offset_right = -2.9999962
@@ -232,50 +301,62 @@ theme_override_font_sizes/font_size = 40
 text = "𝕋𝕚𝕥𝕝𝕖"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 0
-offset_left = 12.365604
-offset_top = 10.846741
-offset_right = 113.3656
-offset_bottom = 41.84674
-scale = Vector2(0.059296105, 0.110654734)
+offset_left = 14.523143
+offset_top = 10.564275
+offset_right = 115.52314
+offset_bottom = 181.56427
+scale = Vector2(0.08984167, 0.13954467)
+
+[node name="PlayButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Play"
 
-[node name="SettingsButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 11.914774
-offset_top = 15.761673
-offset_right = 112.91477
-offset_bottom = 46.761673
-scale = Vector2(0.06250159, 0.114500396)
+[node name="SettingsButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Settings"
 
-[node name="ControlsButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 11.946976
-offset_top = 20.620104
-offset_right = 112.946976
-offset_bottom = 51.620106
-scale = Vector2(0.06233433, 0.11189678)
+[node name="ControlsButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Controls"
 
-[node name="InstructionsButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 12.333401
-offset_top = 25.309061
-offset_right = 113.333405
-offset_bottom = 56.309063
-scale = Vector2(0.06233433, 0.1118968)
+[node name="InstructionsButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Instructions"
 
-[node name="QuitButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 12.462208
-offset_top = 30.449963
-offset_right = 113.462204
-offset_bottom = 61.449963
-scale = Vector2(0.06233433, 0.11189678)
-theme_override_colors/font_outline_color = Color(0, 0.48802227, 0.2995677, 1)
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Quit"
 
 [node name="SettingsPanel" type="Panel" parent="."]
@@ -289,47 +370,65 @@ scale = Vector2(29.700745, 17.247192)
 
 [node name="MusicLabel" type="Label" parent="SettingsPanel"]
 layout_mode = 0
-offset_left = 10.235431
-offset_top = 10.4364805
-offset_right = 56.23543
-offset_bottom = 33.43648
-scale = Vector2(0.12564607, 0.2590415)
-text = "Music"
+offset_left = 11.110831
+offset_top = 11.248207
+offset_right = 62.110832
+offset_bottom = 34.248207
+scale = Vector2(0.09661711, 0.16168308)
+theme_override_constants/outline_size = 5
+text = "MUSIC"
 
 [node name="MusicSlider" type="HSlider" parent="SettingsPanel"]
 layout_mode = 0
-offset_left = 17.3733
-offset_top = 12.407816
-offset_right = 63.3733
-offset_bottom = 28.407816
+offset_left = 17.507977
+offset_top = 12.407814
+offset_right = 262.3673
+offset_bottom = 28.407814
 scale = Vector2(0.055964198, 0.1607738)
+theme_override_constants/center_grabber = 0
+theme_override_constants/grabber_offset = 0
+theme_override_constants/tick_offset = 0
+theme_override_styles/slider = SubResource("StyleBoxFlat_qe12f")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_nlkkf")
 value = 100.0
 
 [node name="SfxLabel" type="Label" parent="SettingsPanel"]
 layout_mode = 0
-offset_left = 10.067086
-offset_top = 18.031921
-offset_right = 56.067085
-offset_bottom = 41.03192
-scale = Vector2(0.12093112, 0.2302349)
+offset_left = 11.413852
+offset_top = 20.351137
+offset_right = 57.413853
+offset_bottom = 43.351135
+scale = Vector2(0.09264867, 0.16574948)
+theme_override_constants/outline_size = 5
 text = "SFX"
 
 [node name="SfxSlider" type="HSlider" parent="SettingsPanel"]
 layout_mode = 0
-offset_left = 16.733585
-offset_top = 20.003258
-offset_right = 62.733585
-offset_bottom = 36.003258
+offset_left = 17.608984
+offset_top = 20.872963
+offset_right = 262.46832
+offset_bottom = 36.872963
 scale = Vector2(0.055964198, 0.1607738)
+theme_override_constants/center_grabber = 0
+theme_override_constants/grabber_offset = 0
+theme_override_constants/tick_offset = 0
+theme_override_styles/slider = SubResource("StyleBoxFlat_qe12f")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_nlkkf")
 value = 100.0
 
 [node name="BackFromSettings" type="Button" parent="SettingsPanel"]
 layout_mode = 0
-offset_left = 16.733585
-offset_top = 27.250809
-offset_right = 62.733585
-offset_bottom = 58.25081
-scale = Vector2(0.12399279, 0.17155677)
+offset_left = 16.228548
+offset_top = 28.874268
+offset_right = 84.228546
+offset_bottom = 53.874268
+scale = Vector2(0.09708875, 0.16976674)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Back"
 
 [node name="ControlsPanel" type="Panel" parent="."]
@@ -360,11 +459,17 @@ Appuyez sur F1 pour afficher/cacher les informations de débogage (FPS, collisio
 
 [node name="BackFromControls" type="Button" parent="ControlsPanel"]
 layout_mode = 0
-offset_left = 17.094137
-offset_top = 30.180355
-offset_right = 62.09414
-offset_bottom = 61.18036
-scale = Vector2(0.10478674, 0.10318502)
+offset_left = 16.536364
+offset_top = 28.09516
+offset_right = 84.53636
+offset_bottom = 53.09516
+scale = Vector2(0.09708875, 0.16976674)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Back"
 
 [node name="InstructionsPanel" type="Panel" parent="."]
@@ -395,9 +500,15 @@ L’or permet d’acheter et d’améliorer des tours."
 
 [node name="BackFromInstructions" type="Button" parent="InstructionsPanel"]
 layout_mode = 0
-offset_left = 17.591736
-offset_top = 28.159039
-offset_right = 62.591736
-offset_bottom = 59.15904
-scale = Vector2(0.123144984, 0.1635207)
+offset_left = 16.226591
+offset_top = 29.033882
+offset_right = 84.22659
+offset_bottom = 54.033882
+scale = Vector2(0.09708875, 0.16976674)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 text = "Back"

@@ -3,6 +3,8 @@ extends Node2D
 @export var tower_scene: PackedScene
 @export var spider_scene: PackedScene
 @export var spider_boss_scene: PackedScene
+@onready var pause_menu: CanvasLayer = $PauseMenu
+
 
 @onready var hud: CanvasLayer = $HUD
 @onready var path: Path2D = $Path2DPath
@@ -161,6 +163,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_toggle"):
 		debug_mode = not debug_mode
 		_apply_debug_mode()
+
+	if event.is_action_pressed("pause_menu") and not game_over_bool:
+		if pause_menu:
+			pause_menu.toggle_menu()
+
 		
 func _apply_debug_mode() -> void:
 	get_tree().debug_collisions_hint = debug_mode

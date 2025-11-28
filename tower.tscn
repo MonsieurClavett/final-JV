@@ -1,4 +1,4 @@
-[gd_scene load_steps=351 format=3 uid="uid://bfwkrbo1n0snu"]
+[gd_scene load_steps=352 format=3 uid="uid://bfwkrbo1n0snu"]
 
 [ext_resource type="Script" uid="uid://cma7kthk4g718" path="res://tower.gd" id="1_k1sas"]
 [ext_resource type="PackedScene" uid="uid://bo4eabchwnwfy" path="res://projectile.tscn" id="2_2ebih"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://r8piu8e35abt" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_045.png" id="15_f7res"]
 [ext_resource type="Texture2D" uid="uid://dnck6husoq1hk" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_067.png" id="16_hrlym"]
 [ext_resource type="Texture2D" uid="uid://1d77c8cioerh" path="res://assets/Tower/x320p_Spritesheets/Normal_Fire_Gun_Horizontal/Normal_Fire_Gun_Horizontal_Body_090.png" id="17_eo6xy"]
+[ext_resource type="AudioStream" uid="uid://dp0yu8gg3k1jb" path="res://audio/retro-laser-1-236669.mp3" id="20_g44d5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5u1hq"]
 atlas = ExtResource("2_80afm")
@@ -2438,3 +2439,7 @@ offset_top = -70.0
 offset_right = 43.0
 offset_bottom = -47.0
 text = "Lv 1"
+
+[node name="SfxShoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_g44d5")
+bus = &"sfx"

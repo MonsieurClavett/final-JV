@@ -7,9 +7,12 @@ extends CanvasLayer
 @onready var restart_btn: Button = $GameOverMenu/RestartButton
 @onready var exit_btn: Button = $GameOverMenu/ExitButton
 @onready var debug_label: Label = $DebugLabel
+@onready var red_overlay: ColorRect = $RedOverlay
 
 
 func _ready() -> void:
+	if red_overlay:
+		red_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# le HUD doit continuer même en pause
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
@@ -34,6 +37,11 @@ func update_wave(value: int) -> void:
 func show_game_over() -> void:
 	game_over_label.visible = true
 	game_over_menu.visible = true
+	
+		# 🔴 affiche la teinte rouge
+	if red_overlay:
+		red_overlay.visible = true
+
 
 
 func set_debug_mode(active: bool) -> void:

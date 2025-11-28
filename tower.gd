@@ -11,6 +11,7 @@ extends Node2D
 @export var fire_rate: float = 2.0
 var cooldown: float = 0.0
 var debug_enabled: bool = false
+@onready var sfx_shoot: AudioStreamPlayer2D = $SfxShoot
 
 
 @export var range: float = 200.0
@@ -101,6 +102,11 @@ func _shoot() -> void:
 	p.global_position = global_position
 	if "target" in p:
 		p.target = target
+		
+	if sfx_shoot:
+		# optionnel: un peu de variation pour éviter que ça fasse robot
+		sfx_shoot.pitch_scale = randf_range(0.95, 1.05)
+		sfx_shoot.play()
 
 
 func _is_valid_target(e) -> bool:
