@@ -23,7 +23,7 @@ extends Control
 @onready var back_controls_button: Button = $ControlsPanel/BackFromControls
 @onready var back_instructions_button: Button = $InstructionsPanel/BackFromInstructions
 
-@onready var highscore_label: Label = $Panel/VBoxContainer/HighScoreLabel
+@onready var highscore_label: Label = $Panel/HighScoreLabel
 var save_path := "user://GameSave.tres"
 
 
@@ -32,7 +32,7 @@ const MAX_DB: float = 0.0
 
 func _ready() -> void:
 	var best := _load_highest_wave()
-	highscore_label.text = "Meilleure vague : %d" % best
+	highscore_label.text = "highest wave : %d" % best
 	bg_anim.play("bg")
 	
 	# Connexions des boutons du menu principal
