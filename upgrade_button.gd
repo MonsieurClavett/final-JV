@@ -8,6 +8,9 @@ func setup(tower, world) -> void:
 	world_ref = world
 	pressed.connect(_on_pressed)
 	_refresh()
+	
+	if world_ref and world_ref.has_method("refresh_shop_buttons"):
+		world_ref.call_deferred("refresh_shop_buttons")
 
 func _on_pressed() -> void:
 	if tower_ref == null or world_ref == null:

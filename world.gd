@@ -9,6 +9,8 @@ extends Node2D
 @onready var hud: CanvasLayer = $HUD
 @onready var path: Path2D = $Path2DPath
 
+var save_path := "user://GameSave.tres"
+
 var gold: int = 500
 
 # --- paramètres des vagues ---
@@ -25,10 +27,53 @@ var debug_mode: bool = false
 
 var game_over_bool: bool = false
 
+var shop_buttons: Array[Button] = []
+var shop_index: int = 0
+
+
 func _ready() -> void:
+	_init_shop_buttons()
+
 	if hud:
 		hud.update_gold(gold)
 		hud.update_wave(0)  # avant la première vague
+
+func _init_shop_buttons() -> void:
+	shop_buttons.clear()
+	_collect_shop_buttons(self)
+	_cleanup_shop_buttons()
+
+	if shop_buttons.is_empty():
+		shop_index = 0
+		return
+
+	shop_index = clampi(shop_index, 0, shop_buttons.size() - 1)
+	shop_buttons[shop_index].grab_focus()
+	
+func _collect_shop_buttons(node: Node) -> void:
+	for child in node.get_children():
+		if child is Button:
+			var btn := child as Button
+			# On prend les BuildButton (root) ET les UpgradeButton (dans les tours)
+			if btn.name.begins_with("BuildButton") or btn.name.begins_with("UpgradeButton"):
+				btn.focus_mode = Control.FOCUS_ALL
+				shop_buttons.append(btn)
+		_collect_shop_buttons(child)
+
+		
+func _cleanup_shop_buttons() -> void:
+	for i in range(shop_buttons.size() - 1, -1, -1):
+		var btn := shop_buttons[i]
+		if btn == null or not is_instance_valid(btn) or not btn.is_inside_tree():
+			shop_buttons.remove_at(i)
+
+	if shop_buttons.is_empty():
+		shop_index = 0
+	else:
+		shop_index = clamp(shop_index, 0, shop_buttons.size() - 1)
+	
+func refresh_shop_buttons() -> void:
+	_init_shop_buttons()
 
 
 func _process(delta: float) -> void:
@@ -79,6 +124,8 @@ func try_buy_tower(cost: int, world_pos: Vector2) -> bool:
 	# passe la ref du monde à la tour si elle a init(world)
 	if tower.has_method("init"):
 		tower.init(self)
+		
+	call_deferred("refresh_shop_buttons")
 
 	return true
 
@@ -154,20 +201,61 @@ func game_over() -> void:
 
 	print("World: GAME OVER")
 
+	_save_highest_wave()
+
 	if hud and hud.has_method("show_game_over"):
 		hud.show_game_over()
 
 	get_tree().paused = true
 	
-func _unhandled_input(event: InputEvent) -> void:
+
+
+	
+func _input(event: InputEvent) -> void:
+	# 🔹 Debug (touche debug_toggle)
 	if event.is_action_pressed("debug_toggle"):
 		debug_mode = not debug_mode
 		_apply_debug_mode()
+		return
 
+	# 🔹 Pause (touche pause_menu / ESC)
 	if event.is_action_pressed("pause_menu") and not game_over_bool:
 		if pause_menu:
 			pause_menu.toggle_menu()
+		return
 
+	# 🔹 Si le jeu est en game over : on ne gère plus le shop
+	if game_over_bool:
+		return
+
+	# 🔹 Navigation dans les boutons shop (build/upgrade)
+	if event.is_action_pressed("ui_left"):
+		_move_shop_focus(-1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_right"):
+		_move_shop_focus(1)
+		get_viewport().set_input_as_handled()
+
+
+
+		
+func _activate_current_shop_button() -> void:
+	_cleanup_shop_buttons()
+	if shop_buttons.is_empty():
+		return
+
+	var btn := shop_buttons[shop_index]
+	btn.emit_signal("pressed")
+
+
+func _move_shop_focus(dir: int) -> void:
+	_cleanup_shop_buttons()
+	if shop_buttons.is_empty():
+		return
+
+	shop_index = posmod(shop_index + dir, shop_buttons.size())
+	var btn := shop_buttons[shop_index]
+	btn.grab_focus()
 		
 func _apply_debug_mode() -> void:
 	get_tree().debug_collisions_hint = debug_mode
@@ -184,3 +272,24 @@ func _apply_debug_mode() -> void:
 		if "debug_enabled" in t:
 			t.debug_enabled = debug_mode
 			t.queue_redraw()
+			
+func _save_highest_wave() -> void:
+	var data: GameData
+
+	# si un fichier existe déjà → on le charge
+	if FileAccess.file_exists(save_path):
+		var loaded = ResourceLoader.load(save_path)
+		if loaded:
+			data = loaded.duplicate(true)
+		else:
+			data = GameData.new()
+	else:
+		data = GameData.new()
+
+	# si la vague courante est meilleure → sauvegarde
+	if wave_index > data.highest_wave:
+		data.highest_wave = wave_index
+		ResourceSaver.save(data, save_path)
+		print("🎉 Nouveau record sauvegardé :", wave_index)
+	else:
+		print("Record non battu. Record actuel :", data.highest_wave)

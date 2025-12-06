@@ -317,6 +317,9 @@ shadow_color = Color(0.912043, 0.47360075, 1, 0.6)
 shadow_size = 6
 
 [sub_resource type="FontFile" id="FontFile_2o6r5"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -481,6 +484,10 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wse8f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ic0uy")
 text = "Quit"
+
+[node name="MenuButton" type="Button" parent="HUD/GameOverMenu"]
+layout_mode = 2
+text = "Menu"
 
 [node name="DebugLabel" type="Label" parent="HUD"]
 z_index = 17

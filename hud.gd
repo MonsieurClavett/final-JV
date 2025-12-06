@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var exit_btn: Button = $GameOverMenu/ExitButton
 @onready var debug_label: Label = $DebugLabel
 @onready var red_overlay: ColorRect = $RedOverlay
+@onready var menu_btn: Button = $GameOverMenu/MenuButton 
 
 
 func _ready() -> void:
@@ -22,6 +23,10 @@ func _ready() -> void:
 	
 	restart_btn.pressed.connect(_on_restart_pressed)
 	exit_btn.pressed.connect(_on_exit_pressed)
+	menu_btn.pressed.connect(_on_menu_pressed)
+	
+	_configure_game_over_focus()
+
 
 
 func update_gold(value: int) -> void:
@@ -34,14 +39,33 @@ func update_wave(value: int) -> void:
 		wave_label.text = "Wave: %d" % value
 
 
+func _configure_game_over_focus() -> void:
+	var controls: Array[Control] = [restart_btn, menu_btn, exit_btn]
+	for c in controls:
+		if c:
+			c.focus_mode = Control.FOCUS_ALL
+
+	# ordre ↓ : Restart -> Menu -> Quit -> Restart
+	restart_btn.focus_next = menu_btn.get_path()
+	menu_btn.focus_next = exit_btn.get_path()
+	exit_btn.focus_next = restart_btn.get_path()
+
+	# ordre ↑ : l’inverse
+	restart_btn.focus_previous = exit_btn.get_path()
+	menu_btn.focus_previous = restart_btn.get_path()
+	exit_btn.focus_previous = menu_btn.get_path()
+
+
+
 func show_game_over() -> void:
 	game_over_label.visible = true
 	game_over_menu.visible = true
-	
-		# 🔴 affiche la teinte rouge
+
 	if red_overlay:
 		red_overlay.visible = true
 
+	# 🎯 bouton par défaut quand le game over apparaît
+	restart_btn.grab_focus()
 
 
 func set_debug_mode(active: bool) -> void:
@@ -72,3 +96,7 @@ func _on_restart_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+	
+func _on_menu_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://main_menu.tscn")  # <-- mets ton chemin réel

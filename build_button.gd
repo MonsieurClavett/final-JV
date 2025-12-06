@@ -14,4 +14,7 @@ func _on_pressed() -> void:
 		return
 	var ok: bool = world.try_buy_tower(cost, global_position)
 	if ok:
+		if world.has_method("refresh_shop_buttons"):
+			world.call_deferred("refresh_shop_buttons")
+
 		queue_free()

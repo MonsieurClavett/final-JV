@@ -23,11 +23,18 @@ extends Control
 @onready var back_controls_button: Button = $ControlsPanel/BackFromControls
 @onready var back_instructions_button: Button = $InstructionsPanel/BackFromInstructions
 
+@onready var highscore_label: Label = $Panel/VBoxContainer/HighScoreLabel
+var save_path := "user://GameSave.tres"
+
+
 const MIN_DB: float = -40.0
 const MAX_DB: float = 0.0
 
 func _ready() -> void:
+	var best := _load_highest_wave()
+	highscore_label.text = "Meilleure vague : %d" % best
 	bg_anim.play("bg")
+	
 	# Connexions des boutons du menu principal
 	play_button.pressed.connect(_on_play_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
@@ -50,8 +57,61 @@ func _ready() -> void:
 	instructions_panel.visible = false
 
 	_sync_sliders_with_audio_buses()
-	
-	
+
+	# 💡 Important : configuration du focus pour le jeu au clavier
+	_configure_focus_for_keyboard()
+
+	# On commence sur le bouton "Play"
+	play_button.grab_focus()
+	# (optionnel) cacher la souris :
+	# Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+
+# ----------------------------------------------------
+# Configuration du focus clavier
+# ----------------------------------------------------
+func _configure_focus_for_keyboard() -> void:
+	# S’assurer que tous les contrôles importants peuvent prendre le focus
+	var buttons: Array[Control] = [
+		play_button,
+		settings_button,
+		controls_button,
+		instructions_button,
+		quit_button,
+		back_settings_button,
+		back_controls_button,
+		back_instructions_button,
+		music_slider,
+		sfx_slider
+	]
+
+	for c in buttons:
+		if c:
+			c.focus_mode = Control.FOCUS_ALL
+
+	# 🔽 Ordre de navigation dans le menu principal (flèches haut/bas)
+	# Play -> Settings -> Controls -> Instructions -> Quit -> Play (boucle)
+	play_button.focus_next = settings_button.get_path()
+	settings_button.focus_next = controls_button.get_path()
+	controls_button.focus_next = instructions_button.get_path()
+	instructions_button.focus_next = quit_button.get_path()
+	quit_button.focus_next = play_button.get_path()
+
+	play_button.focus_previous = quit_button.get_path()
+	settings_button.focus_previous = play_button.get_path()
+	controls_button.focus_previous = settings_button.get_path()
+	instructions_button.focus_previous = controls_button.get_path()
+	quit_button.focus_previous = instructions_button.get_path()
+
+	# Pour le panneau Settings, on peut définir :
+	# MusicSlider <-> SfxSlider <-> BackFromSettings
+	music_slider.focus_next = sfx_slider.get_path()
+	sfx_slider.focus_next = back_settings_button.get_path()
+	back_settings_button.focus_next = music_slider.get_path()
+
+	music_slider.focus_previous = back_settings_button.get_path()
+	sfx_slider.focus_previous = music_slider.get_path()
+	back_settings_button.focus_previous = sfx_slider.get_path()
 
 
 # ----------------------------------------------------
@@ -88,6 +148,19 @@ func _show_panel(panel: Panel) -> void:
 	controls_panel.visible = (panel == controls_panel)
 	instructions_panel.visible = (panel == instructions_panel)
 
+	# 🎯 Très important : donner le focus au bon contrôle quand on change de panneau
+	if panel == null:
+		# Retour au menu principal
+		play_button.grab_focus()
+	elif panel == settings_panel:
+		# On commence par le slider musique
+		music_slider.grab_focus()
+	elif panel == controls_panel:
+		# Par exemple, le bouton "Back"
+		back_controls_button.grab_focus()
+	elif panel == instructions_panel:
+		back_instructions_button.grab_focus()
+
 
 # ----------------------------------------------------
 # Volume sliders
@@ -120,4 +193,10 @@ func _sync_sliders_with_audio_buses() -> void:
 		var ratio_sfx: float = inverse_lerp(MIN_DB, MAX_DB, db_sfx)
 		sfx_slider.value = clampf(ratio_sfx * 100.0, 0.0, 100.0)
 
-		
+func _load_highest_wave() -> int:
+	if FileAccess.file_exists(save_path):
+		var data = ResourceLoader.load(save_path)
+		if data:
+			return data.highest_wave
+	
+	return 0  # si pas encore de fichier

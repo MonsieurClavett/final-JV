@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 @onready var panel: Panel = $Panel
 @onready var music_slider: HSlider = $Panel/MusicSlider
 @onready var sfx_slider: HSlider = $Panel/SfxSlider
@@ -25,6 +24,33 @@ func _ready() -> void:
 
 	_sync_sliders_with_audio_buses()
 
+	# 🔽 config du focus clavier
+	_configure_focus_for_keyboard()
+
+
+func _configure_focus_for_keyboard() -> void:
+	var controls: Array[Control] = [
+		resume_btn,
+		main_menu_btn,
+		music_slider,
+		sfx_slider
+	]
+
+	for c in controls:
+		if c:
+			c.focus_mode = Control.FOCUS_ALL
+
+	# ordre de navigation (↑/↓)
+	# Resume -> MainMenu -> Music -> SFX -> Resume (boucle)
+	resume_btn.focus_next = main_menu_btn.get_path()
+	main_menu_btn.focus_next = music_slider.get_path()
+	music_slider.focus_next = sfx_slider.get_path()
+	sfx_slider.focus_next = resume_btn.get_path()
+
+	resume_btn.focus_previous = sfx_slider.get_path()
+	main_menu_btn.focus_previous = resume_btn.get_path()
+	music_slider.focus_previous = main_menu_btn.get_path()
+	sfx_slider.focus_previous = music_slider.get_path()
 
 
 # --- API appelée par World.gd ---
@@ -34,6 +60,9 @@ func open_menu() -> void:
 	visible = true
 	panel.visible = true
 	get_tree().paused = true
+
+	# 🎯 bouton par défaut quand on ouvre le menu
+	resume_btn.grab_focus()
 
 
 func close_menu() -> void:
@@ -61,7 +90,6 @@ func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://main_menu.tscn")
 
 
-
 # --- sliders volume ---
 func _on_music_slider_changed(value: float) -> void:
 	var ratio: float = clampf(value / 100.0, 0.0, 1.0)
@@ -77,7 +105,8 @@ func _on_sfx_slider_changed(value: float) -> void:
 	var bus_idx: int = AudioServer.get_bus_index("sfx")
 	if bus_idx >= 0:
 		AudioServer.set_bus_volume_db(bus_idx, db)
-		
+
+
 func _sync_sliders_with_audio_buses() -> void:
 	var music_idx: int = AudioServer.get_bus_index("music")
 	if music_idx >= 0:
