@@ -1,13 +1,14 @@
 extends PathFollow2D
 
-@export var speed: float = 150.0
-@export var reward: int = 50
+@export var base_speed: float = 150
+var speed: float = 150
+@export var reward: int = 25
 
 @export var dir_step_deg: float = 22.5
 @export var anim_prefix: String = "walk_"
 @export var anim_angle_offset: float = 90.0
 
-@export var max_health: float = 100.0
+@export var max_health: float = 25.0
 
 @onready var body: AnimatedSprite2D = $Body
 @onready var shadow: AnimatedSprite2D = ($Shadow if has_node("Shadow") else null)
@@ -45,6 +46,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_dying:
 		return  
+	
 
 	progress += speed * delta
 

@@ -154,8 +154,7 @@ func try_upgrade(world: Node) -> bool:
 		print("Pas assez d'or pour upgrade")
 		return false
 
-	# 🔥 upgrade: double fire_rate
-	fire_rate *= 3.0
+	fire_rate *= 2.5
 	upgrade_index += 1
 	_apply_upgrade_color()
 

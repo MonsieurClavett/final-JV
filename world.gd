@@ -18,7 +18,13 @@ var gold: int = 500
 @export var spiders_per_wave_increment: int = 1       # +1 spider par vague
 @export var spawn_delay_between_spiders: float = 0.6  # délai entre chaque spider
 @export var wave_rest_time: float = 3.0               # temps entre deux vagues
-@export var boss_every: int = 3                       # boss toutes les 3 vagues (0 = jamais)
+@export var boss_every: int = 2                       # boss toutes les 3 vagues (0 = jamais)
+@export var boss_spawn_delay: float = 0.35   # délai entre chaque boss
+@export var boss_speed_growth_per_wave: float = 5 # +10% de speed par vague
+@export var normal_speed_growth_per_wave: float = 10 # +10% de speed par vague
+
+
+
 
 var wave_index: int = 0
 var _time_until_next_wave: float = 1.0
@@ -144,6 +150,12 @@ func spawn_spider() -> void:
 	# passe world_ref si le script de l'araignée en a besoin
 	if "world_ref" in s:
 		s.world_ref = self
+		
+	if "base_speed" in s and "speed" in s:
+		# +10 de vitesse *par vague*
+		s.speed = s.base_speed + (wave_index * 6)
+
+		print("Boss spawned → speed:", s.speed)
 
 
 func spawn_spider_boss() -> void:
@@ -156,8 +168,15 @@ func spawn_spider_boss() -> void:
 	if b is PathFollow2D:
 		(b as PathFollow2D).progress = 0.0
 
+	# Passe ref du monde
 	if "world_ref" in b:
 		b.world_ref = self
+
+	if "base_speed" in b and "speed" in b:
+		# +10 de vitesse *par vague*
+		b.speed = b.base_speed + (wave_index * 7)
+
+		print("Boss spawned → speed:", b.speed)
 
 
 # ----------- vagues infinies -----------
@@ -186,9 +205,21 @@ func _spawn_wave_for_index_impl(wave: int) -> void:
 			await get_tree().create_timer(spawn_delay_between_spiders).timeout
 
 	# boss toutes les X vagues
+		# boss toutes les X vagues
+	# boss toutes les X vagues
 	if boss_every > 0 and wave % boss_every == 0:
-		await get_tree().create_timer(2.0).timeout
-		spawn_spider_boss()
+		# nombre de boss augmente tous les 2 vagues
+		var boss_count: int = 1 + int((wave - 1) / 2)
+		print("Wave", wave, " → bosses :", boss_count)
+
+		await get_tree().create_timer(2.0).timeout   # délai avant l'apparition du premier boss
+
+		for i in range(boss_count):
+			spawn_spider_boss()
+			if i < boss_count - 1: # éviter un délai après le dernier
+				await get_tree().create_timer(boss_spawn_delay).timeout
+
+
 
 	# prépare la prochaine vague
 	_time_until_next_wave = wave_rest_time
@@ -213,6 +244,9 @@ func game_over() -> void:
 	
 func _input(event: InputEvent) -> void:
 	# 🔹 Debug (touche debug_toggle)
+	if event.is_action_pressed("force_game_over"):
+		game_over()
+		return
 	if event.is_action_pressed("debug_toggle"):
 		debug_mode = not debug_mode
 		_apply_debug_mode()

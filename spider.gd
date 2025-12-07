@@ -1,8 +1,9 @@
 extends PathFollow2D
 
-@export var speed: float = 150.0
+@export var base_speed: float = 150
+var speed: float = 150
 @export var max_health: float = 10.0
-@export var reward: int = 10
+@export var reward: int = 7
 
 var health: float
 var is_dying: bool = false

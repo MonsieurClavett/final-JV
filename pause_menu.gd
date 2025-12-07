@@ -10,6 +10,13 @@ var is_open: bool = false
 
 const MIN_DB: float = -40.0
 const MAX_DB: float = 0.0
+var muted := false
+var last_music_db := 0.0
+var last_sfx_db := 0.0
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("mute_audio"):
+		_toggle_mute()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -119,3 +126,25 @@ func _sync_sliders_with_audio_buses() -> void:
 		var db_sfx: float = AudioServer.get_bus_volume_db(sfx_idx)
 		var ratio_sfx: float = inverse_lerp(MIN_DB, MAX_DB, db_sfx)
 		sfx_slider.value = clampf(ratio_sfx * 100.0, 0.0, 100.0)
+		
+func _toggle_mute() -> void:
+	var music_bus := AudioServer.get_bus_index("music")
+	var sfx_bus := AudioServer.get_bus_index("sfx")
+
+	if not muted:
+		# sauvegarde volumes actuels
+		last_music_db = AudioServer.get_bus_volume_db(music_bus)
+		last_sfx_db = AudioServer.get_bus_volume_db(sfx_bus)
+
+		# mute complet
+		AudioServer.set_bus_volume_db(music_bus, -80.0)
+		AudioServer.set_bus_volume_db(sfx_bus, -80.0)
+		muted = true
+		print("🔇 MUTE")
+
+	else:
+		# restaure
+		AudioServer.set_bus_volume_db(music_bus, last_music_db)
+		AudioServer.set_bus_volume_db(sfx_bus, last_sfx_db)
+		muted = false
+		print("🔊 UNMUTE")

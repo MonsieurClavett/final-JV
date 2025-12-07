@@ -1,10 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsg088uxws2gg"]
+[gd_scene load_steps=3 format=3 uid="uid://dsg088uxws2gg"]
 
 [ext_resource type="Script" uid="uid://7sej12tirfun" path="res://upgrade_button.gd" id="1_feo8w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cbp6q"]
+bg_color = Color(0.94415003, 0.6802007, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4161014, 0.08167062, 7.219613e-08, 1)
 
 [node name="UpgradeButton" type="Button"]
 z_index = 11
 offset_right = 38.0
 offset_bottom = 31.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_cbp6q")
 text = "100"
 script = ExtResource("1_feo8w")
