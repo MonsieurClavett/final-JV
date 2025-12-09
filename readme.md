@@ -301,3 +301,62 @@ Fonctionnalités du menu pause :
 **Source (Menu Pause)**
 
 - [Godot - Pausing games and process mode ](https://docs.godotengine.org/en/stable/tutorials/scripting/pausing_games.html)
+
+### 8. Système d’or et boutique dynamique (world.gd)
+
+Chaque ennemi tué rapporte des pièces d’or.  
+Le HUD se met à jour en temps réel et le joueur peut dépenser ces ressources pour acheter ou améliorer des tours.
+
+```gdscript
+func add_gold(amount):
+    gold += amount
+    hud.update_gold(gold)
+```
+
+Les boutons se mettent également à jour automatiquement :
+
+```gdscript
+func refresh_shop_buttons():
+    _init_shop_buttons()
+```
+
+- Feedback instantané → le joueur voit sa ressource augmenter.
+- Donne un rythme économique au jeu.
+
+**Source (Money System)**
+
+- [Godot - Money System ](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+
+### 9. Sauvegarde du Highscore (world.gd)
+
+La plus haute vague atteinte est sauvegardée même après fermeture du jeu via `ResourceSaver`.
+
+```gdscript
+if wave_index > data.highest_wave:
+    data.highest_wave = wave_index
+    ResourceSaver.save(data, save_path)
+```
+
+- Conserve la progression du joueur.
+- Motivation à battre son record.
+
+**Source (Resource Saver)**
+
+- [Godot - Resource Saver](https://docs.godotengine.org/en/stable/classes/class_resourcesaver.html)
+
+### 10. Mode Debug avec visualisation des cibles (debug_vectors.gd + tower.gd)
+
+En appuyant sur **D**, le joueur active un mode debug affichant :
+
+- flèches entre une tour et sa cible
+- cercle de portée de chaque tour
+- collisions visibles
+
+```gdscript
+if hud and hud.has_method("set_debug_mode"):
+    hud.set_debug_mode(debug_mode)
+```
+
+**Source (Line Drawing)**
+
+- [Godot - Custom Drawing](https://docs.godotengine.org/en/stable/tutorials/2d/custom_drawing_in_2d.html)
