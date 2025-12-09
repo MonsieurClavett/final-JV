@@ -254,3 +254,50 @@ Cela permet à l’araignée de **tourner automatiquement selon son mouvement**,
 
 - [KCC - 8-Directional Movement/Animation](https://kidscancode.org/godot_recipes/4.x/2d/8_direction/index.html)
 - [Documentation Godot – Math vectorielle & angles](https://docs.godotengine.org/en/stable/tutorials/math/vector_math.html#angles)
+
+### 5. Barre de vie dynamique et couleur selon la vie (spider.gd)
+
+Les araignées possèdent une barre de vie affichée au-dessus d’elles.  
+La barre rétrécit proportionnellement aux points de vie restants, ce qui permet au joueur de visualiser facilement l’état d'un ennemi.
+
+```gdscript
+var ratio = clamp(health / max_health, 0.0, 1.0)
+health_bar_fg.size.x = _health_bar_full_width * ratio
+health_bar_fg.color = Color(1.0 - ratio, ratio, 0.0)
+```
+
+| Vie restante              | Couleur          |
+| ------------------------- | ---------------- |
+| Haute (ratio proche de 1) | **Vert**         |
+| Moyenne                   | **Jaune/Orange** |
+| Basse                     | **Rouge**        |
+
+Cela améliore la lisibilité du combat et le feedback visuel.
+
+**Source (Health Bar)**
+
+- [Godot - ColorRect ](https://docs.godotengine.org/en/stable/classes/class_colorrect.html)
+
+### 7. Menu Pause fonctionnel même lorsque le jeu est stoppé (pause_menu.gd)
+
+Lorsque le joueur appuie sur **ESC**, un menu apparaît et le `get_tree().paused = true` stoppe le gameplay.  
+Les boutons UI restent fonctionnels grâce à `process_mode = ALWAYS`.
+
+```gdscript
+func open_menu():
+    is_open = true
+    visible = true
+    get_tree().paused = true
+```
+
+Fonctionnalités du menu pause :
+
+- Reprendre la partie
+
+- Retour au menu principal
+
+- Ajuster la musique / SFX
+
+**Source (Menu Pause)**
+
+- [Godot - Pausing games and process mode ](https://docs.godotengine.org/en/stable/tutorials/scripting/pausing_games.html)
