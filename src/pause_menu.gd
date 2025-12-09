@@ -30,8 +30,6 @@ func _ready() -> void:
 	main_menu_btn.pressed.connect(_on_main_menu_pressed)
 
 	_sync_sliders_with_audio_buses()
-
-	# 🔽 config du focus clavier
 	_configure_focus_for_keyboard()
 
 
@@ -47,8 +45,6 @@ func _configure_focus_for_keyboard() -> void:
 		if c:
 			c.focus_mode = Control.FOCUS_ALL
 
-	# ordre de navigation (↑/↓)
-	# Resume -> MainMenu -> Music -> SFX -> Resume (boucle)
 	resume_btn.focus_next = main_menu_btn.get_path()
 	main_menu_btn.focus_next = music_slider.get_path()
 	music_slider.focus_next = sfx_slider.get_path()
@@ -60,15 +56,12 @@ func _configure_focus_for_keyboard() -> void:
 	sfx_slider.focus_previous = music_slider.get_path()
 
 
-# --- API appelée par World.gd ---
-
 func open_menu() -> void:
 	is_open = true
 	visible = true
 	panel.visible = true
 	get_tree().paused = true
 
-	# 🎯 bouton par défaut quand on ouvre le menu
 	resume_btn.grab_focus()
 
 
@@ -85,19 +78,14 @@ func toggle_menu() -> void:
 	else:
 		open_menu()
 
-
-# --- boutons ---
-
 func _on_resume_pressed() -> void:
 	close_menu()
-
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://main_menu.tscn")
 
 
-# --- sliders volume ---
 func _on_music_slider_changed(value: float) -> void:
 	var ratio: float = clampf(value / 100.0, 0.0, 1.0)
 	var db: float = lerpf(MIN_DB, MAX_DB, ratio)
@@ -140,11 +128,11 @@ func _toggle_mute() -> void:
 		AudioServer.set_bus_volume_db(music_bus, -80.0)
 		AudioServer.set_bus_volume_db(sfx_bus, -80.0)
 		muted = true
-		print("🔇 MUTE")
+		print("MUTE")
 
 	else:
 		# restaure
 		AudioServer.set_bus_volume_db(music_bus, last_music_db)
 		AudioServer.set_bus_volume_db(sfx_bus, last_sfx_db)
 		muted = false
-		print("🔊 UNMUTE")
+		print("UNMUTE")

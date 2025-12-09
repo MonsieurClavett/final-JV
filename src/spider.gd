@@ -70,8 +70,7 @@ func die() -> void:
 	if is_dying:
 		return
 	is_dying = true
-
-	# ⬇ très important : ne plus faire partie des cibles
+	
 	remove_from_group("enemies")
 
 	if world_ref and world_ref.has_method("add_gold"):

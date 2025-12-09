@@ -20,7 +20,6 @@ var debug_enabled: bool = false
 @export var anim_prefix: String = "shoot_"
 @export var anim_angle_offset: float = 90.0
 
-# --- UPGRADES ---
 @export var upgrade_button_scene: PackedScene
 @export var upgrade_costs: PackedInt32Array = PackedInt32Array([100, 200])
 

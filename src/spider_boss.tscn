@@ -4898,13 +4898,11 @@ script = ExtResource("1_sgibl")
 z_index = 1
 position = Vector2(0, 1.7820517)
 sprite_frames = SubResource("SpriteFrames_jaawv")
-animation = &"walk_225"
-frame_progress = 0.973
+animation = &"walk_180"
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gbt66")
-animation = &"walk_shadow_0"
-frame_progress = 0.7212414
+animation = &"walk_shadow_180"
 
 [node name="HealthBar" type="Node2D" parent="."]
 

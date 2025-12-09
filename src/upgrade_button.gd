@@ -25,7 +25,6 @@ func _refresh() -> void:
 	if tower_ref == null:
 		return
 
-	# la tour nous dit le coût actuel
 	if tower_ref.has_method("get_current_upgrade_cost"):
 		var cost: int = tower_ref.get_current_upgrade_cost()
 

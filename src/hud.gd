@@ -10,7 +10,6 @@ extends CanvasLayer
 @onready var red_overlay: ColorRect = $RedOverlay
 @onready var menu_btn: Button = $GameOverMenu/MenuButton 
 
-
 func _ready() -> void:
 	if red_overlay:
 		red_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -26,8 +25,6 @@ func _ready() -> void:
 	menu_btn.pressed.connect(_on_menu_pressed)
 	
 	_configure_game_over_focus()
-
-
 
 func update_gold(value: int) -> void:
 	if gold_label:
@@ -64,7 +61,6 @@ func show_game_over() -> void:
 	if red_overlay:
 		red_overlay.visible = true
 
-	# 🎯 bouton par défaut quand le game over apparaît
 	restart_btn.grab_focus()
 
 
@@ -99,4 +95,4 @@ func _on_exit_pressed() -> void:
 	
 func _on_menu_pressed() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://main_menu.tscn")  # <-- mets ton chemin réel
+	get_tree().change_scene_to_file("res://main_menu.tscn")

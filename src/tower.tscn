@@ -2345,7 +2345,6 @@ animations = [{
 }]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8wj6g"]
-load_path = "res://.godot/imported/Normal_Idle_Simple_Shadow_270.png-2047f53b607164a06c0edf49fde5046f.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nyvao"]
 atlas = SubResource("CompressedTexture2D_8wj6g")
@@ -2421,7 +2420,8 @@ z_index = 5
 position = Vector2(22.000002, -4)
 scale = Vector2(0.46952394, 0.481941)
 sprite_frames = SubResource("SpriteFrames_nyvao")
-animation = &"shoot_90"
+animation = &"shoot_337"
+frame_progress = 0.5142572
 
 [node name="Shadow" type="AnimatedSprite2D" parent="."]
 z_index = 5
@@ -2430,15 +2430,6 @@ scale = Vector2(0.46952394, 0.481941)
 sprite_frames = SubResource("SpriteFrames_wgpyl")
 animation = &"idle"
 frame_progress = 0.9109897
-
-[node name="LevelLabel" type="Label" parent="."]
-visible = false
-z_index = 5
-offset_left = 3.0
-offset_top = -70.0
-offset_right = 43.0
-offset_bottom = -47.0
-text = "Lv 1"
 
 [node name="SfxShoot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_g44d5")

@@ -860,10 +860,10 @@ scale = Vector2(31.053883, 17.70117)
 [node name="HighScoreLabel" type="Label" parent="Panel"]
 material = SubResource("ShaderMaterial_nlkkf")
 layout_mode = 0
-offset_left = 2.254146
-offset_top = 13.614917
-offset_right = 143.25415
-offset_bottom = 35.614918
+offset_left = 1.7067109
+offset_top = 14.46232
+offset_right = 142.70671
+offset_bottom = 36.46232
 rotation = -0.25691938
 scale = Vector2(0.06838347, 0.09885292)
 theme_override_colors/font_color = Color(1, 0.85490197, 0.011764706, 1)
@@ -935,7 +935,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
 theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
 theme_override_styles/focus = SubResource("StyleBoxFlat_8qtwp")
-text = "Controls"
+text = "Options "
 
 [node name="InstructionsButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -1047,20 +1047,21 @@ scale = Vector2(30.478285, 18.223778)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ControlsPanel"]
 layout_mode = 0
-offset_left = 6.1683264
-offset_top = 9.547966
-offset_right = 816.16833
-offset_bottom = 188.54797
-scale = Vector2(0.03737879, 0.102785565)
+offset_left = 6.594859
+offset_top = 6.6396775
+offset_right = 622.7943
+offset_bottom = 185.63968
+scale = Vector2(0.0739385, 0.1215528)
 theme_override_constants/shadow_outline_size = 4
 theme_override_constants/outline_size = 8
-text = "Cliquez sur les tuiles bleues pour afficher le bouton Acheter (50).
-
-Cliquez sur le bouton Acheter pour placer une tour.
-
-Cliquez sur le bouton Upgrade sous une tour pour l’améliorer.
-
-Appuyez sur F1 pour afficher/cacher les informations de débogage (FPS, collisions, portée des tours, etc.)."
+text = "CONTROLS
+- Espace/Enter : acheter une tour
+- UI_Left / UI_Right : changer de bouton 
+- ESC : mettre le jeu en pause
+- M : mute l'audio
+- D : mode debug
+- G : forcer le game over
+"
 
 [node name="BackFromControls" type="Button" parent="ControlsPanel"]
 layout_mode = 0
@@ -1088,21 +1089,16 @@ scale = Vector2(32.231045, 18.288977)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="InstructionsPanel"]
 layout_mode = 0
-offset_left = 8.377016
-offset_top = 5.850518
-offset_right = 545.377
-offset_bottom = 236.85052
-scale = Vector2(0.044593956, 0.09001594)
+offset_left = 4.4677424
+offset_top = 10.334095
+offset_right = 626.0631
+offset_bottom = 241.33409
+scale = Vector2(0.05730067, 0.13293482)
 theme_override_constants/outline_size = 5
-text = "Règles :
-
-Chaque ennemi qui atteint la fin du trajet provoque la fin de la partie.
-
-Tuer des araignées normales donne 10 or.
-
-Tuer une araignée boss donne 50 or.
-
-L’or permet d’acheter et d’améliorer des tours."
+text = "OBJECTIF :
+Survivre aux vagues d’araignées et protéger la fleur.
+Construisez et améliorez vos tours pour éliminer les ennemis.
+Chaque ennemi donne de l’or permettant d’acheter davantage de défenses."
 
 [node name="BackFromInstructions" type="Button" parent="InstructionsPanel"]
 layout_mode = 0

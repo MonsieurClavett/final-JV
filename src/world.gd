@@ -1,10 +1,10 @@
+#Alex Marcouiller
 extends Node2D
 
 @export var tower_scene: PackedScene
 @export var spider_scene: PackedScene
 @export var spider_boss_scene: PackedScene
 @onready var pause_menu: CanvasLayer = $PauseMenu
-
 
 @onready var hud: CanvasLayer = $HUD
 @onready var path: Path2D = $Path2DPath
@@ -18,13 +18,10 @@ var gold: int = 500
 @export var spiders_per_wave_increment: int = 1       # +1 spider par vague
 @export var spawn_delay_between_spiders: float = 0.6  # délai entre chaque spider
 @export var wave_rest_time: float = 3.0               # temps entre deux vagues
-@export var boss_every: int = 2                       # boss toutes les 3 vagues (0 = jamais)
-@export var boss_spawn_delay: float = 0.35   # délai entre chaque boss
-@export var boss_speed_growth_per_wave: float = 5 # +10% de speed par vague
-@export var normal_speed_growth_per_wave: float = 10 # +10% de speed par vague
-
-
-
+@export var boss_every: int = 2                       # boss toutes les 2 vagues (0 = jamais)
+@export var boss_spawn_delay: float = 0.35  		  # délai entre chaque boss
+@export var boss_speed_growth_per_wave: float = 7 	  # + x de speed par vague
+@export var normal_speed_growth_per_wave: float = 6  # + x de speed par vague
 
 var wave_index: int = 0
 var _time_until_next_wave: float = 1.0
@@ -153,7 +150,7 @@ func spawn_spider() -> void:
 		
 	if "base_speed" in s and "speed" in s:
 		# +10 de vitesse *par vague*
-		s.speed = s.base_speed + (wave_index * 6)
+		s.speed = s.base_speed + (wave_index * normal_speed_growth_per_wave)
 
 		print("Boss spawned → speed:", s.speed)
 
@@ -173,8 +170,7 @@ func spawn_spider_boss() -> void:
 		b.world_ref = self
 
 	if "base_speed" in b and "speed" in b:
-		# +10 de vitesse *par vague*
-		b.speed = b.base_speed + (wave_index * 7)
+		b.speed = b.base_speed + (wave_index * boss_speed_growth_per_wave)
 
 		print("Boss spawned → speed:", b.speed)
 
@@ -191,7 +187,6 @@ func _start_next_wave() -> void:
 
 
 func _spawn_wave_for_index(wave: int) -> void:
-	# on lance la coroutine dans un call_deferred pour éviter les soucis dans _process
 	call_deferred("_spawn_wave_for_index_impl", wave)
 
 
@@ -205,14 +200,12 @@ func _spawn_wave_for_index_impl(wave: int) -> void:
 			await get_tree().create_timer(spawn_delay_between_spiders).timeout
 
 	# boss toutes les X vagues
-		# boss toutes les X vagues
-	# boss toutes les X vagues
 	if boss_every > 0 and wave % boss_every == 0:
 		# nombre de boss augmente tous les 2 vagues
 		var boss_count: int = 1 + int((wave - 1) / 2)
 		print("Wave", wave, " → bosses :", boss_count)
 
-		await get_tree().create_timer(2.0).timeout   # délai avant l'apparition du premier boss
+		await get_tree().create_timer(2.0).timeout  
 
 		for i in range(boss_count):
 			spawn_spider_boss()
@@ -239,11 +232,8 @@ func game_over() -> void:
 
 	get_tree().paused = true
 	
-
-
-	
 func _input(event: InputEvent) -> void:
-	# 🔹 Debug (touche debug_toggle)
+	# Debug (touche debug_toggle)
 	if event.is_action_pressed("force_game_over"):
 		game_over()
 		return
@@ -252,35 +242,23 @@ func _input(event: InputEvent) -> void:
 		_apply_debug_mode()
 		return
 
-	# 🔹 Pause (touche pause_menu / ESC)
+	#  Pause (touche pause_menu / ESC)
 	if event.is_action_pressed("pause_menu") and not game_over_bool:
 		if pause_menu:
 			pause_menu.toggle_menu()
 		return
 
-	# 🔹 Si le jeu est en game over : on ne gère plus le shop
+	# Si le jeu est en game over : on ne gère plus le shop
 	if game_over_bool:
 		return
 
-	# 🔹 Navigation dans les boutons shop (build/upgrade)
+	# Navigation dans les boutons shop (build/upgrade)
 	if event.is_action_pressed("ui_left"):
 		_move_shop_focus(-1)
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_right"):
 		_move_shop_focus(1)
 		get_viewport().set_input_as_handled()
-
-
-
-		
-func _activate_current_shop_button() -> void:
-	_cleanup_shop_buttons()
-	if shop_buttons.is_empty():
-		return
-
-	var btn := shop_buttons[shop_index]
-	btn.emit_signal("pressed")
-
 
 func _move_shop_focus(dir: int) -> void:
 	_cleanup_shop_buttons()
@@ -300,7 +278,7 @@ func _apply_debug_mode() -> void:
 	if has_node("DebugVectors"):
 		$DebugVectors.enabled = debug_mode
 
-	# ⬇️ activer le mode debug sur toutes les tours
+	# activer le mode debug sur toutes les tours
 	var towers = get_tree().get_nodes_in_group("towers")
 	for t in towers:
 		if "debug_enabled" in t:
@@ -324,6 +302,5 @@ func _save_highest_wave() -> void:
 	if wave_index > data.highest_wave:
 		data.highest_wave = wave_index
 		ResourceSaver.save(data, save_path)
-		print("🎉 Nouveau record sauvegardé :", wave_index)
 	else:
 		print("Record non battu. Record actuel :", data.highest_wave)
