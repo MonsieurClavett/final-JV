@@ -13,6 +13,7 @@ var save_path := "user://GameSave.tres"
 
 var gold: int = 500
 
+
 # --- paramètres des vagues ---
 @export var base_spiders_per_wave: int = 3            # nombre de spiders à la vague 1
 @export var spiders_per_wave_increment: int = 1       # +1 spider par vague
@@ -80,6 +81,7 @@ func refresh_shop_buttons() -> void:
 
 
 func _process(delta: float) -> void:
+	manage_end_game()
 	if _is_spawning_wave:
 		return
 
@@ -233,6 +235,8 @@ func game_over() -> void:
 	get_tree().paused = true
 	
 func _input(event: InputEvent) -> void:
+	manage_end_game()
+	
 	# Debug (touche debug_toggle)
 	if event.is_action_pressed("force_game_over"):
 		game_over()
@@ -304,3 +308,17 @@ func _save_highest_wave() -> void:
 		ResourceSaver.save(data, save_path)
 	else:
 		print("Record non battu. Record actuel :", data.highest_wave)
+		
+func is_on_arcade() -> bool:
+	return OS.get_executable_path().to_lower().contains("retropie")
+
+func manage_end_game() -> void:
+	
+	if is_on_arcade() :
+	
+					
+		if Input.is_action_pressed("hotkey") and Input.is_action_pressed("quit"):
+			pause_menu.quit_flag = true 
+	else :
+		if Input.is_action_just_pressed("quit"):
+			get_tree().quit()

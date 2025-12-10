@@ -6,6 +6,9 @@ extends CanvasLayer
 @onready var resume_btn: Button = $Panel/ResumeButton
 @onready var main_menu_btn: Button = $Panel/MainMenuButton
 
+var quit_flag := false
+
+
 var is_open: bool = false
 
 const MIN_DB: float = -40.0
@@ -17,6 +20,10 @@ var last_sfx_db := 0.0
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("mute_audio"):
 		_toggle_mute()
+
+func _process(_delta : float) -> void:
+	if quit_flag:
+		get_tree().quit()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
